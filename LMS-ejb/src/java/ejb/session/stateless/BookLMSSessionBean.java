@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
+import util.exception.BookNotFoundException;
 import util.exception.UnknownPersistenceException;
 import util.exception.UsernameExistException;
 
@@ -42,7 +43,14 @@ public class BookLMSSessionBean implements BookLMSSessionBeanRemote, BookLMSSess
         }
     }
 
-    public void persist(Object object) {
-        em.persist(object);
-    }
+    @Override
+    public Book retrieveBookById(Long bookId) throws BookNotFoundException {
+        Book book = em.find(Book.class, bookId);
+        if (book != null) {
+            return book;
+        } else {
+            throw new BookNotFoundException("Book with ID " + bookId + " does not exist!");
+        }
+    } 
+    
 }

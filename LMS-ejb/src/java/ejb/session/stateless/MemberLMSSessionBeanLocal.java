@@ -7,6 +7,7 @@ package ejb.session.stateless;
 
 import entity.Member;
 import javax.ejb.Local;
+import util.exception.MemberNotFoundException;
 import util.exception.UnknownPersistenceException;
 import util.exception.UsernameExistException;
 
@@ -18,4 +19,6 @@ import util.exception.UsernameExistException;
 public interface MemberLMSSessionBeanLocal {
 
     public Long createNewMember(Member newMember) throws UsernameExistException, UnknownPersistenceException;
+
+    public Member retrieveMemberById(Long memberId) throws MemberNotFoundException;
 }

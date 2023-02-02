@@ -5,6 +5,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
+import util.exception.MemberNotFoundException;
 import util.exception.UnknownPersistenceException;
 import util.exception.UsernameExistException;
 
@@ -36,6 +37,16 @@ public class MemberLMSSessionBean implements MemberLMSSessionBeanRemote, MemberL
             }
         }
     }
+    
+    @Override
+    public Member retrieveMemberById(Long memberId) throws MemberNotFoundException {
+        Member member = em.find(Member.class, memberId);
+        if (member != null) {
+            return member;
+        } else {
+            throw new MemberNotFoundException("Member with ID " + memberId + " does not exist!");
+        }
+    } 
 
     
 }

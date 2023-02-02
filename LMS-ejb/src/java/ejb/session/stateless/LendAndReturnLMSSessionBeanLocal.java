@@ -6,19 +6,20 @@
 package ejb.session.stateless;
 
 import entity.Book;
+import entity.LendAndReturn;
 import javax.ejb.Local;
 import util.exception.BookNotFoundException;
+import util.exception.LendingNotFoundException;
 import util.exception.UnknownPersistenceException;
-import util.exception.UsernameExistException;
 
 /**
  *
  * @author muhdm
  */
 @Local
-public interface BookLMSSessionBeanLocal {
+public interface LendAndReturnLMSSessionBeanLocal {
 
-    public Long createNewBook(Book newBook) throws UsernameExistException, UnknownPersistenceException;
+    public Long createNewLendAndReturn(LendAndReturn newLR, Long memberId, Long bookId) throws UnknownPersistenceException;
 
-    public Book retrieveBookById(Long bookId) throws BookNotFoundException;
+    public LendAndReturn retrieveLendById(Long lendId) throws LendingNotFoundException;
 }
