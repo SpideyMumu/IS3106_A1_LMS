@@ -22,4 +22,6 @@ public interface LendAndReturnLMSSessionBeanLocal {
     public Long createNewLendAndReturn(LendAndReturn newLR, Long memberId, Long bookId) throws UnknownPersistenceException;
 
     public LendAndReturn retrieveLendById(Long lendId) throws LendingNotFoundException;
+    
+    public Long returnBook(Long lrId) throws LendingNotFoundException;
 }

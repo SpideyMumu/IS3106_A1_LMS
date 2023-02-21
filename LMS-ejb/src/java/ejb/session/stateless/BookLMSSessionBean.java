@@ -6,10 +6,12 @@
 package ejb.session.stateless;
 
 import entity.Book;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 import util.exception.BookNotFoundException;
 import util.exception.UnknownPersistenceException;
 import util.exception.UsernameExistException;
@@ -51,6 +53,16 @@ public class BookLMSSessionBean implements BookLMSSessionBeanRemote, BookLMSSess
         } else {
             throw new BookNotFoundException("Book with ID " + bookId + " does not exist!");
         }
-    } 
+    }
+    
+    public List<Book> retrieveAllBooks() {
+        Query query = em.createQuery("SELECT b FROM Book b");
+        return query.getResultList();
+    }
+    
+    public List<Book> retrievAllAvailBooks() {
+        Query query = em.createQuery("SELECT b FROM Book b WHERE b.available = TRUE");
+        return query.getResultList();
+    }
     
 }

@@ -43,9 +43,13 @@ public class Book implements Serializable {
     @NotNull
     @Size(min = 3, max = 255)
     private String author;
+    
+    @Column(nullable = false)
+    @NotNull
+    private boolean available;
 
     //Relationship attributes
-    @OneToMany(mappedBy = "bookId")
+    @OneToMany(mappedBy = "book")
     private List<LendAndReturn> lendAndReturns;
 
     public Book() {
@@ -102,6 +106,14 @@ public class Book implements Serializable {
 
     public void setBookId(Long bookId) {
         this.bookId = bookId;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
     @Override

@@ -64,7 +64,7 @@ public class Member implements Serializable {
     private String address;
 
     //Relationship attribute
-    @OneToMany(mappedBy = "memberId")
+    @OneToMany(mappedBy = "member")
     private List<LendAndReturn> lendAndReturns;
 
     public Member() {
