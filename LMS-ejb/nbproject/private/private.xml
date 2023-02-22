@@ -7,7 +7,6 @@
             <file>file:/D:/IS2103_IS3106_programs/LMS/LMS-ejb/src/java/ejb/session/stateless/StaffLMSSessionBean.java</file>
             <file>file:/D:/IS2103_IS3106_programs/LMS/LMS-ejb/src/java/ejb/session/singleton/DataInitSB.java</file>
             <file>file:/D:/IS2103_IS3106_programs/LMS/LMS-ejb/src/java/ejb/session/stateless/BookLMSSessionBean.java</file>
-            <file>file:/D:/IS2103_IS3106_programs/LMS/LMS-ejb/src/java/ejb/session/stateless/LendAndReturnLMSSessionBeanLocal.java</file>
             <file>file:/D:/IS2103_IS3106_programs/LMS/LMS-ejb/src/java/ejb/session/stateless/MemberLMSSessionBean.java</file>
         </group>
     </open-files>

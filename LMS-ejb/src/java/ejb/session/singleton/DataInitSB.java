@@ -48,14 +48,18 @@ public class DataInitSB {
     @PostConstruct
     public void postConstruct() {
         try {
-            staffLMSSessionBean.retrieveStaffByUsername("staffOne");
+            staffLMSSessionBean.retrieveStaffByUsername("mursyid");
         } catch (StaffNotFoundException ex) {
-
+            try {
+                initializeData();
+            } catch (UsernameExistException |UnknownPersistenceException ex2) {
+                ex.printStackTrace();
+            }
         }
     }
 
     private void initializeData() throws
-            StaffNotFoundException, UsernameExistException, UnknownPersistenceException 
+            UsernameExistException, UnknownPersistenceException 
     {
         // create staff here
         Staff eric = new Staff(Long.valueOf(1), "Eric", "Some", "eric", "password");

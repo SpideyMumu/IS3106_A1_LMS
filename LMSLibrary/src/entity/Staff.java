@@ -39,7 +39,7 @@ public class Staff implements Serializable {
     @Column(nullable = false, unique = true, length = 32)
     @NotNull
     @Size(min = 4, max = 32)
-    private String userName;
+    private String username;
 
     @Column(nullable = false, length = 32)
     @NotNull
@@ -53,14 +53,14 @@ public class Staff implements Serializable {
         this.staffId = staffId;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userName = userName;
+        this.username = userName;
         this.password = password;
     }
 
     public Staff(String firstName, String lastName, String userName, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userName = userName;
+        this.username = userName;
         this.password = password;
     }
 
@@ -80,12 +80,12 @@ public class Staff implements Serializable {
         this.lastName = lastName;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
