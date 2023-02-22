@@ -50,9 +50,16 @@ public class StaffProfileManagedBean implements Serializable {
         return "/index.xhtml?faces-redirect=true";
     }
     
+    public String logout2() {
+        System.out.println("Log Out successful");
+        username = null;
+        password = null;
+        return "/index.xhtml?faces-redirect=true";
+    }
+    
     public String test() {
         System.out.println("test successful");
-        return "index?faces-redirect=true";
+        return "";
     }
     
     

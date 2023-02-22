@@ -8,10 +8,12 @@
     </h:head>
     <h:body style = "font-family: sans-serif">
         Successfully Logged In! Logged in User: #{staffProfileManagedBean.username}<br/>
-        <h:form>
-            <p:commandButton type="button" value="Log Out" 
-                             action="#{staffProfileManagedBean.logout()}" />
-            </h:form>
+        <h:form id="form1">
+            <p:commandButton type ="submit" value="Log Out"
+                             action="#{staffProfileManagedBean.logout2()}" />
+            <p:commandButton type ="submit" value="test" 
+                             action="#{staffProfileManagedBean.test()}" />
+        </h:form>
     </h:body>
 </html>
 
