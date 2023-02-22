@@ -97,8 +97,8 @@ public class DataInitSB {
         1 Tony Shade M 31 S8900678A 83722773 13 Jurong East, Ave 3
         2 Dewi Tan F 35 S8581028X 94602711 15 Computing Dr
         */
-        Member tony = new Member();
-        Member dewi = new Member();
+        Member tony = new Member(1, "Tony", "Shade", 'M', 31, "S8900678A", "83722773", "13 Jurong East, Ave 3");
+        Member dewi = new Member(2, "Dewi", "Tan", 'F', 35, "S8581028X", "94602711", "15 Computing Dr");
         
         memberLMSSessionBean.createNewMember(dewi);
         memberLMSSessionBean.createNewMember(tony);

@@ -71,7 +71,7 @@ public class Member implements Serializable {
         this.lendAndReturns = new ArrayList<>();
     }
 
-    public Member(Long memberId, String firstName, String lastName, Character gender, Integer age, String identityNo, String phone, String address) {
+    public Member(long memberId, String firstName, String lastName, Character gender, Integer age, String identityNo, String phone, String address) {
         this.memberId = memberId;
         this.firstName = firstName;
         this.lastName = lastName;
