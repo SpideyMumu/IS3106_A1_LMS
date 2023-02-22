@@ -29,7 +29,7 @@ import util.exception.UnknownPersistenceException;
  * @author muhdm
  */
 @Stateless
-public class LendAndReturnLMSSessionBean implements LendAndReturnLMSSessionBeanRemote, LendAndReturnLMSSessionBeanLocal {
+public class LendAndReturnLMSSessionBean implements LendAndReturnLMSSessionBeanLocal {
 
     @EJB
     private MemberLMSSessionBeanLocal memberLMSSessionBean;

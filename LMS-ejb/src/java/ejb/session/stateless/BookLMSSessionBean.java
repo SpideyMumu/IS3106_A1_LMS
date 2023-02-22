@@ -21,7 +21,7 @@ import util.exception.UsernameExistException;
  * @author muhdm
  */
 @Stateless
-public class BookLMSSessionBean implements BookLMSSessionBeanRemote, BookLMSSessionBeanLocal {
+public class BookLMSSessionBean implements BookLMSSessionBeanLocal {
 
     @PersistenceContext(unitName = "LMS-ejbPU")
     private EntityManager em;

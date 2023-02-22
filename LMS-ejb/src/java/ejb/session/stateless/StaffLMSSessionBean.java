@@ -19,7 +19,7 @@ import util.exception.UsernameExistException;
  * @author muhdm
  */
 @Stateless
-public class StaffLMSSessionBean implements StaffLMSSessionBeanRemote, StaffLMSSessionBeanLocal {
+public class StaffLMSSessionBean implements StaffLMSSessionBeanLocal {
 
     @PersistenceContext(unitName = "LMS-ejbPU")
     private EntityManager em;
