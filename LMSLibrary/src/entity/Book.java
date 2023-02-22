@@ -56,12 +56,13 @@ public class Book implements Serializable {
         this.lendAndReturns = new ArrayList<>();
     }
 
-    public Book(Long bookId, String title, String isbn, String author) {
+    public Book(long bookId, String title, String isbn, String author) {
         this.bookId = bookId;
         this.title = title;
         this.isbn = isbn;
         this.author = author;
         this.lendAndReturns = new ArrayList<>();
+        this.available = true;
     }
 
     public String getTitle() {

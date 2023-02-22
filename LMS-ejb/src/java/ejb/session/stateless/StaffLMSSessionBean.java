@@ -1,10 +1,16 @@
 package ejb.session.stateless;
 
+import entity.Member;
 import entity.Staff;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
+import util.exception.MemberNotFoundException;
+import util.exception.StaffNotFoundException;
 import util.exception.UnknownPersistenceException;
 import util.exception.UsernameExistException;
 
@@ -34,6 +40,17 @@ public class StaffLMSSessionBean implements StaffLMSSessionBeanRemote, StaffLMSS
             } else {
                 throw new UnknownPersistenceException(ex.getMessage());
             }
+        }
+    }
+    
+    public Staff retrieveStaffByUsername(String username) throws StaffNotFoundException {
+        Query query = em.createQuery("SELECT s FROM Staff s WHERE s.username = :inUsername");
+        query.setParameter("inUsername", username);
+
+        try {
+            return (Staff) query.getSingleResult();
+        } catch (NoResultException | NonUniqueResultException ex) {
+            throw new StaffNotFoundException("Staff with username " + username + " does not exist!");
         }
     }
 

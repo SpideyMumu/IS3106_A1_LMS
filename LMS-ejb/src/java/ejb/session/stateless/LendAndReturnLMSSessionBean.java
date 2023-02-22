@@ -41,6 +41,7 @@ public class LendAndReturnLMSSessionBean implements LendAndReturnLMSSessionBeanR
     private EntityManager em;
 
     //Lending books
+    @Override
     public Long createNewLendAndReturn(LendAndReturn newLR, Long memberId, Long bookId) throws UnknownPersistenceException {
         try {
             Book book = bookLMSSessionBean.retrieveBookById(bookId);

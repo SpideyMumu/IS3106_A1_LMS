@@ -23,7 +23,7 @@ public class Staff implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long staffId;
 
     @Column(nullable = false, length = 32)
@@ -45,6 +45,24 @@ public class Staff implements Serializable {
     @NotNull
     @Size(min = 8, max = 32)
     private String password;
+
+    public Staff() {
+    }
+
+    public Staff(Long staffId, String firstName, String lastName, String userName, String password) {
+        this.staffId = staffId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userName = userName;
+        this.password = password;
+    }
+
+    public Staff(String firstName, String lastName, String userName, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userName = userName;
+        this.password = password;
+    }
 
     public String getFirstName() {
         return firstName;
