@@ -55,11 +55,14 @@ public class BookLMSSessionBean implements BookLMSSessionBeanLocal {
         }
     }
     
+    
+    @Override
     public List<Book> retrieveAllBooks() {
         Query query = em.createQuery("SELECT b FROM Book b");
         return query.getResultList();
     }
     
+    @Override
     public List<Book> retrievAllAvailBooks() {
         Query query = em.createQuery("SELECT b FROM Book b WHERE b.available = TRUE");
         return query.getResultList();
