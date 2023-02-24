@@ -7,13 +7,19 @@
         <title>Home</title>
     </h:head>
     <h:body style = "font-family: sans-serif">
-        Successfully Logged In! Logged in User: #{staffProfileManagedBean.username}<br/>
+        <nav>
+            <a href="home.xhtml">Home</a> |
+            <a href="viewAllBooks.xhtml">Books</a> |
+            <a href="viewAllMembers.xhtml">Members</a>
+        </nav>
+        <header>
+            <h1>
+                Successfully Logged In! Logged in User: #{staffProfileManagedBean.username}
+            </h1>
+        </header>
         <h:form id="form1">
             <p:commandButton type ="submit" value="Log Out"
                              action="#{staffProfileManagedBean.logout2()}" />
-            <p:commandButton type ="submit" value="test" 
-                             action="#{staffProfileManagedBean.test()}" />
-            <a href="viewAllBooks.xhtml">View All Books</a>
         </h:form>
     </h:body>
 </html>
