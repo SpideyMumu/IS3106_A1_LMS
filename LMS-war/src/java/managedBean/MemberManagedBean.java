@@ -7,11 +7,14 @@ package managedBean;
 
 import ejb.session.stateless.MemberLMSSessionBeanLocal;
 import entity.Member;
+import static java.lang.Integer.getInteger;
 import java.util.List;
+import java.util.Locale;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import org.primefaces.util.LangUtils;
 import util.exception.UnknownPersistenceException;
 import util.exception.UsernameExistException;
 
@@ -49,6 +52,29 @@ public class MemberManagedBean {
         } catch (UsernameExistException |UnknownPersistenceException ex) {
             return "viewAllMembers.xhtml?faces-redirect=true";
         }
+    }
+    
+    public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
+        String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase();
+        if (LangUtils.isValueBlank(filterText)) {
+            return true;
+        }
+        
+        //System.out.println("Printing FILTER TEXT: "+ filterText);
+        int filterInt;
+        try {
+            filterInt = Integer.parseInt(filterText);
+        } catch (NumberFormatException ex) {
+            filterInt = -1;
+        }
+        Member member = (Member) value;
+        return member.getFirstName().toLowerCase().contains(filterText)
+                || member.getLastName().toLowerCase().contains(filterText)
+                || member.getGender().equals(filterText)
+                || member.getIdentityNo().toLowerCase().contains(filterText)
+                || member.getPhone().toLowerCase().contains(filterText)
+                || member.getAddress().contains(filterText)
+                || member.getAge() == filterInt;
     }
 
     public List<Member> getMembers() {

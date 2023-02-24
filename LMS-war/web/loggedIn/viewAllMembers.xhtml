@@ -15,46 +15,32 @@
         </nav>
         <h1>Members</h1>
         <p:divider/>
-        <p:dataTable id ="members" var="member" value="#{memberManagedBean.members}" 
-                     widgetVar="membersTable"
-                     emptyMessage="No members found with given criteria"
-                     filteredValue="#{memberManagedBean.filteredMembers}"
-                     globalFilterFunction="true">
-            <f:facet name="header">
-                <p:outputPanel>
-                    <span class="ui-input-icon-left">
-                        <i class="pi pi-search"/>
-                        <p:inputText id="globalFilter" onkeyup="PF('membersTable').filter()"
-                                     placeholder="Search"/>
-                    </span>
-                    <p:commandButton value="Register New Member" style="margin: 5px;" onclick="PF('dlg').show()"/>
-                </p:outputPanel>
-            </f:facet>
-            <p:column headerText="ID">
-                <h:outputText value="#{member.memberId}" />
-            </p:column>
-            <p:column headerText="First name">
-                <h:outputText value="#{member.firstName}" />
-            </p:column>
-            <p:column headerText="Last name">
-                <h:outputText value="#{member.lastName}" />
-            </p:column>
-            <p:column headerText="Gender">
-                <h:outputText value="#{member.gender}" />
-            </p:column>
-            <p:column headerText="Age">
-                <h:outputText value="#{member.age}" />
-            </p:column>
-            <p:column headerText="Identity Number">
-                <h:outputText value="#{member.identityNo}" />
-            </p:column>
-            <p:column headerText="Phone Number">
-                <h:outputText value="#{member.phone}" />
-            </p:column>
-            <p:column headerText="Address">
-                <h:outputText value="#{member.address}" />
-            </p:column>
-        </p:dataTable>
+        <h:form>
+            <p:dataTable id ="members" var="member" value="#{memberManagedBean.members}" 
+                         widgetVar="membersTable"
+                         emptyMessage="No members found with given criteria"
+                         filteredValue="#{memberManagedBean.filteredMembers}"
+                         globalFilterFunction="#{memberManagedBean.globalFilterFunction}">
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <span class="ui-input-icon-left">
+                            <i class="pi pi-search"/>
+                            <p:inputText id="globalFilter" onkeyup="PF('membersTable').filter()"
+                                         placeholder="Search Members"/>
+                        </span>
+                        <p:commandButton value="Register New Member" style="margin: 5px;" onclick="PF('dlg').show()"/>
+                    </p:outputPanel>
+                </f:facet>
+                <p:column headerText="ID" field="memberId" filterable="false"/>
+                <p:column headerText="First name" field="firstName" filterable="false"/>
+                <p:column headerText="Last name" field="lastName" filterable="false"/>
+                <p:column headerText="Gender" field="gender" filterable="false"/>
+                <p:column headerText="Age" field="age"  filterable="false"/>
+                <p:column headerText="Identity Number" field="identityNo" filterable="false"/>
+                <p:column headerText="Phone Number" field="phone" filterable="false"/>
+                <p:column headerText="Address" field="address" filterable="false"/>
+            </p:dataTable>
+        </h:form>
         <p:dialog header="Register New Member" widgetVar="dlg" minHeight="40" width="500" 
                   showEffect="fade" modal="true" appendTo="@(body)">
             <h:form>

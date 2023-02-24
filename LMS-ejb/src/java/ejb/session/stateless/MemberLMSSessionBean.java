@@ -1,10 +1,12 @@
 package ejb.session.stateless;
 
 import entity.Member;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 import util.exception.MemberNotFoundException;
 import util.exception.UnknownPersistenceException;
 import util.exception.UsernameExistException;
@@ -46,7 +48,13 @@ public class MemberLMSSessionBean implements MemberLMSSessionBeanLocal {
         } else {
             throw new MemberNotFoundException("Member with ID " + memberId + " does not exist!");
         }
-    } 
+    }
+    
+    @Override
+    public List<Member> retrieveAllMembers() {
+        Query query = em.createQuery("SELECT m FROM Member m");
+        return query.getResultList();
+    }
 
     
 }
