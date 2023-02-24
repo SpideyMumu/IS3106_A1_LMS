@@ -14,6 +14,8 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import org.primefaces.util.LangUtils;
 import util.exception.UnknownPersistenceException;
 import util.exception.UsernameExistException;
@@ -49,11 +51,15 @@ public class MemberManagedBean {
         try {
             memberLMSSessionBean.createNewMember(newMember);
             return "viewAllMembers.xhtml?faces-redirect=true";
-        } catch (UsernameExistException |UnknownPersistenceException ex) {
-            return "viewAllMembers.xhtml?faces-redirect=true";
+        } catch (UsernameExistException | UnknownPersistenceException ex) {
+            //String errorMessage = "An error occured: " + ex.getMessage();
+            System.out.println("We got to catch the error here");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", ex.getMessage()));
+            return "";
         }
     }
     
+    // For data table global search
     public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
         String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase();
         if (LangUtils.isValueBlank(filterText)) {

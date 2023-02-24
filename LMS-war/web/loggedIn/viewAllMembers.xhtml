@@ -25,8 +25,8 @@
                     <p:outputPanel>
                         <span class="ui-input-icon-left">
                             <i class="pi pi-search"/>
-                            <p:inputText id="globalFilter" onkeyup="PF('membersTable').filter()"
-                                         placeholder="Search Members"/>
+                            <p:inputText id="globalFilter" style="width: 100%" onkeyup="PF('membersTable').filter()"
+                                         placeholder="Search Member"/>
                         </span>
                         <p:commandButton value="Register New Member" style="margin: 5px;" onclick="PF('dlg').show()"/>
                     </p:outputPanel>
@@ -44,24 +44,38 @@
         <p:dialog header="Register New Member" widgetVar="dlg" minHeight="40" width="500" 
                   showEffect="fade" modal="true" appendTo="@(body)">
             <h:form>
-                First Name:<h:inputText value="#{memberManagedBean.newMember.firstName}"/>
-                <br/>
-                Last Name: <h:inputText value="#{memberManagedBean.newMember.lastName}"/>
-                <br/>
-                Gender: <h:selectOneRadio value = "#{memberManagedBean.newMember.gender}"> 
-                    <f:selectItem itemValue = "M" itemLabel = "Male" /> 
-                    <f:selectItem itemValue = "F" itemLabel = "Female" />
-                </h:selectOneRadio>    
-                <br/>
-                Age: <h:inputText value="#{memberManagedBean.newMember.age}" converterMessage="Please enter digits only."/>
-                <br/>
-                Identity Number: <h:inputText value="#{memberManagedBean.newMember.identityNo}"/>
-                <br/>
-                Phone Number: <h:inputText value="#{memberManagedBean.newMember.phone}"/>
-                <br/>
-                Address: <h:inputText value="#{memberManagedBean.newMember.address}"/>
-                <br/>
-                <p:commandButton type ="submit" value="Register" action="#{memberManagedBean.registerMember()}"/>
+                <div class="ui-fluid">
+                    <div class="field">
+                        First Name: <p:inputText id="firstName" value="#{memberManagedBean.newMember.firstName}"/>
+                    </div>
+                    <div class="field">
+                        Last Name: <p:inputText value="#{memberManagedBean.newMember.lastName}"/>
+                    </div>
+                    <div class="field">
+                        Gender: <p:selectOneRadio value = "#{memberManagedBean.newMember.gender}"> 
+                            <f:selectItem itemValue = "M" itemLabel = "Male" /> 
+                            <f:selectItem itemValue = "F" itemLabel = "Female" />
+                        </p:selectOneRadio>    
+                    </div>
+                    <div class="field">
+                        Age: <p:inputText value="#{memberManagedBean.newMember.age}" converterMessage="Please enter digits only for Age"/>
+                    </div>
+                    <div class="field">
+                        Identity Number: <p:inputMask value="#{memberManagedBean.newMember.identityNo}" mask="a9999999a"/>
+                    </div>
+                    <div class="field">
+                        Phone Number: <p:inputMask value="#{memberManagedBean.newMember.phone}" mask="99999999"/>
+                    </div>
+                    <div class="field">
+                        Address: <p:inputText value="#{memberManagedBean.newMember.address}"/>
+                    </div>
+                    <div class="field">
+                        <p:messages id="messages" showDetail="true">
+                            <p:autoUpdate />
+                        </p:messages>
+                        <p:commandButton type ="submit" value="Register" action="#{memberManagedBean.registerMember()}"/>
+                    </div>
+                </div>
             </h:form>
         </p:dialog>
     </h:body>
