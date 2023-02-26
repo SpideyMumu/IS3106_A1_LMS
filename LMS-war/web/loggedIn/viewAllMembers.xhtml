@@ -5,9 +5,10 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
+        <h:outputStylesheet name="css/styles.css"/>
         <title>Members</title>
     </h:head>
-    <h:body style = "font-family: sans-serif">
+    <h:body>
         <nav>
             <a href="home.xhtml">Home</a> |
             <a href="viewAllBooks.xhtml">Books</a> |
@@ -15,6 +16,7 @@
         </nav>
         <h1>Members</h1>
         <p:divider/>
+        
         <h:form>
             <p:dataTable id ="members" var="member" value="#{memberManagedBean.members}" 
                          widgetVar="membersTable"
@@ -22,7 +24,7 @@
                          filteredValue="#{memberManagedBean.filteredMembers}"
                          globalFilterFunction="#{memberManagedBean.globalFilterFunction}">
                 <f:facet name="header">
-                    <p:outputPanel>
+                    <p:outputPanel style="display: flex; justify-content: space-between">
                         <span class="ui-input-icon-left">
                             <i class="pi pi-search"/>
                             <p:inputText id="globalFilter" style="width: 100%" onkeyup="PF('membersTable').filter()"
@@ -41,6 +43,8 @@
                 <p:column headerText="Address" field="address" filterable="false"/>
             </p:dataTable>
         </h:form>
+        
+        <!-- Register Member Form -->
         <p:dialog header="Register New Member" widgetVar="dlg" minHeight="40" width="500" 
                   showEffect="fade" modal="true" appendTo="@(body)">
             <h:form>

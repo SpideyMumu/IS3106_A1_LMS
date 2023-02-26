@@ -14,6 +14,8 @@ import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import java.io.Serializable;
 import java.util.Locale;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import org.primefaces.util.LangUtils;
 
 /**
@@ -28,31 +30,42 @@ public class BookManagedBean implements Serializable {
     private BookLMSSessionBeanLocal bookLMSSessionBean;
 
     private List<Book> books;
-    
+
     private List<Book> availBooks;
-    
+
     private List<Book> filteredBooks;
+
+    private Book selectedBook;
 
     public BookManagedBean() {
     }
-    
+
     @PostConstruct
     public void init() {
         books = bookLMSSessionBean.retrieveAllBooks();
         availBooks = bookLMSSessionBean.retrievAllAvailBooks();
     }
-    
+
     public void lendBook() {
-        
+        //System.out.println("lend book method called");
+        if (selectedBook == null) {
+            //System.out.println("no book selected");
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Please select a book"));
+        } else {
+            //System.out.println("book selected");
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "You have selected " + selectedBook.getTitle()));
+        }
     }
-    
+
     // For data table global search
     public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
         String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase();
         if (LangUtils.isValueBlank(filterText)) {
             return true;
         }
-        
+
         //System.out.println("Printing FILTER TEXT: "+ filterText);
         long filterLong;
         try {
@@ -66,7 +79,6 @@ public class BookManagedBean implements Serializable {
                 || book.getIsbn().contains(filterText)
                 || book.getBookId() == filterLong;
     }
-    
 
     public List<Book> getBooks() {
         return books;
@@ -91,7 +103,13 @@ public class BookManagedBean implements Serializable {
     public void setFilteredBooks(List<Book> filteredBooks) {
         this.filteredBooks = filteredBooks;
     }
-    
-    
-    
+
+    public Book getSelectedBook() {
+        return selectedBook;
+    }
+
+    public void setSelectedBook(Book selectedBook) {
+        this.selectedBook = selectedBook;
+    }
+
 }

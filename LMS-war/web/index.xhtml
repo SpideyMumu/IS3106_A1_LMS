@@ -2,24 +2,35 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
+        <h:outputStylesheet name="css/styles.css"/>
         <title>LMS</title>
     </h:head>
-    <h:body style = "font-family: sans-serif">
-        Welcome to Libary Management System! Please log in to proceed.
+    <h:body>
+        <h1>Welcome to Libary Management System!</h1>
         <br/>
-        <h:form>
-            Username: <h:inputText value="#{staffProfileManagedBean.username}" 
-                                   required = "true" requiredMessage = "Please enter username" id="username"/>
-            <br/>
-            <h:message for="username" styleClass="error" />
-            <br/>
-            Password: <h:inputSecret value="#{staffProfileManagedBean.password}"/>
-            <br/>
-            <!-- using action instead of actionListener -->
-            <p:commandButton value="Login" action="#{staffProfileManagedBean.login}"/>
-        </h:form>
+        <div class="login">
+            <h:form>
+                Please log in to proceed
+                <br/>
+                <div class="field">
+                    Username: <p:inputText value="#{staffProfileManagedBean.username}" 
+                                           required = "true" requiredMessage = "Please enter username" id="username"/>
+                    <h:message for="username" styleClass="error" />
+                </div>
+                <div class="field">
+                    Password: <p:password value="#{staffProfileManagedBean.password}"/>
+                </div>
+                <div class="field">
+                    <p:messages id="messages" showDetail="true">
+                        <p:autoUpdate />
+                    </p:messages>
+                    <p:commandButton value="Login" action="#{staffProfileManagedBean.login}"/>
+                </div>
+            </h:form>
+        </div>
     </h:body>
 </html>
 

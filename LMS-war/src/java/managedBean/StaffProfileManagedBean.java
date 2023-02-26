@@ -11,6 +11,8 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import util.exception.StaffNotFoundException;
 
 @Named(value = "staffProfileManagedBean")
@@ -28,41 +30,44 @@ public class StaffProfileManagedBean implements Serializable {
 
     public String login() {
         System.out.println("log in method called");
-        
+
         try {
             Staff loggedInStaff = staffLMSSessionBean.retrieveStaffByUsername(username);
             System.out.println(loggedInStaff.toString() + loggedInStaff.getFirstName() + loggedInStaff.getLastName());
             if (loggedInStaff.getPassword().equals(password)) {
                 return "/loggedIn/home.xhtml?faces-redirect=true";
             } else {
-                System.out.println("log in not successful");
-                return "index.xhtml";
+                //System.out.println("log in not successful");
+                FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Wrong Password. Please Try Again"));
+                return "";
             }
         } catch (StaffNotFoundException ex) {
-            return "index.xhtml";
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", ex.getMessage()));
+            return "";
         }
     }
-    
+
     public String logout() {
         System.out.println("Log Out successful");
         username = null;
         password = null;
         return "/index.xhtml?faces-redirect=true";
     }
-    
+
     public String logout2() {
         System.out.println("Log Out successful");
         username = null;
         password = null;
         return "/index.xhtml?faces-redirect=true";
     }
-    
+
     public String test() {
         System.out.println("test successful");
         return "";
     }
-    
-    
+
     public String getUsername() {
         return username;
     }

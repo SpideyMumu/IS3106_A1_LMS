@@ -5,40 +5,47 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
+        <h:outputStylesheet name="css/styles.css"/>
         <title>Books</title>
     </h:head>
-    <h:body style = "font-family: sans-serif">
+    <h:body>
         <nav>
             <a href="home.xhtml">Home</a> |
             <a href="viewAllBooks.xhtml">Books</a> |
             <a href="viewAllMembers.xhtml">Members</a>
         </nav>
         <h1>Books</h1>
-        <p:outputPanel>
-            <p:commandButton value="Lend Book" style="margin-right: 5px"/>
-            <p:commandButton value="Return Book"/>
-        </p:outputPanel>
         <p:divider />
         <h:form>
             <p:dataTable id ="books" var="book" value="#{bookManagedBean.availBooks}"
-                         widgetVar="booksTable"
+                         widgetVar="booksTable" rowKey="#{book.bookId}"
                          emptyMessage="No books found with given criteria"
                          filteredValue="#{bookManagedBean.filteredBooks}"
                          globalFilterFunction="#{bookManagedBean.globalFilterFunction}"
+                         selection="#{bookManagedBean.selectedBook}" selectionMode="single"
                          >
                 <f:facet name="header">
-                    <p:outputPanel>
+                    <p:outputPanel style="display: flex; justify-content: space-between">
+
                         <span class="ui-input-icon-left">
                             <i class="pi pi-search"/>
                             <p:inputText id="globalFilter" onkeyup="PF('booksTable').filter()"
-                                         placeholder="Search Books"/>
+                                         placeholder="Search Available Books"/>
                         </span>
+                        <p:commandButton value="Return Book" 
+                                         style="margin-right: 5px; margin-left: 5px"/>
                     </p:outputPanel>
                 </f:facet>
                 <p:column headerText="ID" field="bookId" filterable="false"/>
                 <p:column headerText="Title" field="title" filterable="false"/>
                 <p:column headerText="Author" field="author" filterable="false"/>
                 <p:column headerText="ISBN" field="isbn" filterable="false"/>
+                <f:facet name="footer">
+                    <p:commandButton value="Lend Selected Book" action="#{bookManagedBean.lendBook()}"/>
+                    <p:messages id="messages" showDetail="true">
+                        <p:autoUpdate />
+                    </p:messages>
+                </f:facet>
             </p:dataTable>
         </h:form>
     </h:body>
