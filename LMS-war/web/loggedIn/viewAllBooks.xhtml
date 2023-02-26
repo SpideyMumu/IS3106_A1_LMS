@@ -2,6 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Books</title>
@@ -18,24 +19,28 @@
             <p:commandButton value="Return Book"/>
         </p:outputPanel>
         <p:divider />
-        <p:dataTable id ="books" var="book" value="#{bookManagedBean.books}">
-            <p:column headerText="ID">
-                <h:outputText value="#{book.bookId}" />
-            </p:column>
-            <p:column headerText="Title">
-                <h:outputText value="#{book.title}" />
-            </p:column>
-            <p:column headerText="Author">
-                <h:outputText value="#{book.author}" />
-            </p:column>
-            <p:column headerText="ISBN">
-                <h:outputText value="#{book.isbn}" />
-            </p:column>
-            <p:column headerText="Available">
-                <!-- to change this to icon but for now idk how -->
-                <h:outputText value="#{book.available}" />
-            </p:column>
-        </p:dataTable>
+        <h:form>
+            <p:dataTable id ="books" var="book" value="#{bookManagedBean.availBooks}"
+                         widgetVar="booksTable"
+                         emptyMessage="No books found with given criteria"
+                         filteredValue="#{bookManagedBean.filteredBooks}"
+                         globalFilterFunction="#{bookManagedBean.globalFilterFunction}"
+                         >
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <span class="ui-input-icon-left">
+                            <i class="pi pi-search"/>
+                            <p:inputText id="globalFilter" onkeyup="PF('booksTable').filter()"
+                                         placeholder="Search Books"/>
+                        </span>
+                    </p:outputPanel>
+                </f:facet>
+                <p:column headerText="ID" field="bookId" filterable="false"/>
+                <p:column headerText="Title" field="title" filterable="false"/>
+                <p:column headerText="Author" field="author" filterable="false"/>
+                <p:column headerText="ISBN" field="isbn" filterable="false"/>
+            </p:dataTable>
+        </h:form>
     </h:body>
 </html>
 
