@@ -10,6 +10,7 @@ import entity.Staff;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -24,15 +25,22 @@ public class StaffProfileManagedBean implements Serializable {
 
     private String username = null;
     private String password = null;
+    
+    private Staff loggedInStaff;
 
     public StaffProfileManagedBean() {
+    }
+    
+    @PostConstruct
+    public void init() {
+        loggedInStaff = new Staff();
     }
 
     public String login() {
         System.out.println("log in method called");
 
         try {
-            Staff loggedInStaff = staffLMSSessionBean.retrieveStaffByUsername(username);
+            loggedInStaff = staffLMSSessionBean.retrieveStaffByUsername(username);
             System.out.println(loggedInStaff.toString() + loggedInStaff.getFirstName() + loggedInStaff.getLastName());
             if (loggedInStaff.getPassword().equals(password)) {
                 return "/loggedIn/home.xhtml?faces-redirect=true";
@@ -82,6 +90,14 @@ public class StaffProfileManagedBean implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Staff getLoggedInStaff() {
+        return loggedInStaff;
+    }
+
+    public void setLoggedInStaff(Staff loggedInStaff) {
+        this.loggedInStaff = loggedInStaff;
     }
 
 }
