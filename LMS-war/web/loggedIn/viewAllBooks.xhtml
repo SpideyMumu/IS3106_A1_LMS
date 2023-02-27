@@ -48,6 +48,19 @@
                 </f:facet>
             </p:dataTable>
         </h:form>
+
+        <!-- dialog lend book form -->
+        <h:form id="lendForm">
+            <div class="field">
+                <p:dialog header="Lending Book" widgetVar="dlg" minHeight="40" width="500" 
+                          showEffect="fade" modal="true">
+                    <p:messages id="messages" showDetail="true">
+                        <p:autoUpdate />
+                    </p:messages>
+                    <p:inputText placeholder="Enter member ID no."/>
+                </p:dialog>
+            </div>
+        </h:form>
     </h:body>
 </html>
 

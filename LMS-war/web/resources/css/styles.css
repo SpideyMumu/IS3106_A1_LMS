@@ -17,5 +17,6 @@ body{
     justify-content: center;
 }
 .field {
-    margin: 10px
+    margin: 10px;
+    text-align: left
 }

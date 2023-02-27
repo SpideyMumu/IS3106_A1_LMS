@@ -16,6 +16,7 @@ import java.io.Serializable;
 import java.util.Locale;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import org.primefaces.PrimeFaces;
 import org.primefaces.util.LangUtils;
 
 /**
@@ -53,11 +54,25 @@ public class BookManagedBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Please select a book"));
         } else {
-            //System.out.println("book selected");
+            System.out.println("book selected is " + selectedBook.getTitle());
+            //FacesContext.getCurrentInstance().addMessage(null,
+            //        new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "You have selected " + selectedBook.getTitle()));
+
+            PrimeFaces current = PrimeFaces.current();
+            current.executeScript("PF('dlg').show();");
             FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "You have selected " + selectedBook.getTitle()));
+                new FacesMessage(FacesMessage.SEVERITY_INFO, null, 
+                        "You have selected '" + selectedBook.getTitle() + "'. Please proceed to select a member to lend to."));
         }
     }
+
+    /*
+    public void test() {
+        System.out.println("book selected is " + selectedBook.getTitle());
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Info!", selectedBook.getTitle()));
+    }
+    */
 
     // For data table global search
     public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
