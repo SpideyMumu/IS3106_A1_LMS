@@ -7,6 +7,7 @@ package ejb.session.stateless;
 
 import entity.Book;
 import entity.LendAndReturn;
+import java.util.List;
 import javax.ejb.Local;
 import util.exception.BookNotFoundException;
 import util.exception.LendingNotFoundException;
@@ -24,4 +25,8 @@ public interface LendAndReturnLMSSessionBeanLocal {
     public LendAndReturn retrieveLendById(Long lendId) throws LendingNotFoundException;
     
     public Long returnBook(Long lrId) throws LendingNotFoundException;
+
+    public List<LendAndReturn> retrieveAllLendAndReturns();
+
+    public List<LendAndReturn> retrieveUnreturnedLends();
 }

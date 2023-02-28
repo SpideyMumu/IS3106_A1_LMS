@@ -181,7 +181,7 @@ public class Member implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Member[ id=" + memberId + " ]";
+        return this.firstName + " " + this.lastName;
     }
 
 }

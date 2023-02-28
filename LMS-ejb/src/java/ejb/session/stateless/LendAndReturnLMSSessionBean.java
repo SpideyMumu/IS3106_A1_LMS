@@ -19,7 +19,9 @@ import java.math.BigDecimal;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 import util.exception.BookNotFoundException;
 import util.exception.LendingNotFoundException;
 import util.exception.MemberNotFoundException;
@@ -72,6 +74,18 @@ public class LendAndReturnLMSSessionBean implements LendAndReturnLMSSessionBeanL
         } else {
             throw new LendingNotFoundException("Lend with ID " + lendId + " does not exist!");
         }
+    }
+    
+    @Override
+    public List<LendAndReturn> retrieveAllLendAndReturns() {
+        Query query = em.createQuery("SELECT lr FROM LendAndReturn lr");
+        return query.getResultList();
+    }
+    
+    @Override
+    public List<LendAndReturn> retrieveUnreturnedLends() {
+        Query query = em.createQuery("SELECT lr FROM LendAndReturn lr WHERE lr.returnDate IS NULL");
+        return query.getResultList();
     }
     
     

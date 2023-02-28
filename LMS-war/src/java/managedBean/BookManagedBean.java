@@ -83,7 +83,7 @@ public class BookManagedBean implements Serializable {
     }
     
     // Confirm lending book after selecting member
-    public String lendBook() {
+    public void lendBook() {
         try {
             memberToLend = memberLMSSessionBean.retrieveMemberByIdentityNum(memberToLendTypedID);
              FacesContext.getCurrentInstance().addMessage("lendForm:dlgMessages",
@@ -93,27 +93,30 @@ public class BookManagedBean implements Serializable {
              newLend.setLendDate(new Date());
             try {
                 lendAndReturnLMSSessionBean.createNewLendAndReturn(newLend, memberToLend.getMemberId(), selectedBook.getBookId());
-                return "viewAllBooks.xhtml?faces-redirect=true";
+                //open another dialog maybe then that dialog redirects to refreshed paged
+                PrimeFaces current = PrimeFaces.current();
+                current.executeScript("PF('dlg').hide();");
+                current.executeScript("PF('dlgSuccess').show();"); 
             } catch (UnknownPersistenceException ex) {
                FacesContext.getCurrentInstance().addMessage("lendForm:dlgMessages",
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", ex.getMessage()));
-               return "";
+               
             }
            
         } catch (MemberNotFoundException ex) {
             FacesContext.getCurrentInstance().addMessage("lendForm:dlgMessages",
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", ex.getMessage()));
-            return "";
+            
         }
     }
-
-    /*
-    public void test() {
-        System.out.println("book selected is " + selectedBook.getTitle());
-        FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "Info!", selectedBook.getTitle()));
+    
+    public String moveToReturnPage() {
+        return "returnBook.xhtml?faces-redirect=true";
     }
-     */
+    
+    public String refresh() {
+        return "viewAllBooks.xhtml?faces-redirect=true";
+    }
     
     // For data table global search
     public boolean globalFilterFunction(Object value, Object filter, Locale locale) {

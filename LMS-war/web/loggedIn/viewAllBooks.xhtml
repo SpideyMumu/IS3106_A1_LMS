@@ -35,7 +35,8 @@
                             <p:commandButton style="margin-left: 5px" value="Lend Selected Book" action="#{bookManagedBean.lendBookDialog()}"/>    
                         </div>
                         <p:commandButton value="Return Book" 
-                                         style="margin-right: 5px; margin-left: 5px"/>
+                                         style="margin-right: 5px; margin-left: 5px"
+                                         action="#{bookManagedBean.moveToReturnPage()}"/>
                     </p:outputPanel>
                 </f:facet>
                 <p:column headerText="ID" field="bookId" filterable="false"/>
@@ -80,6 +81,14 @@
                 <p:commandButton value="No" type="button" styleClass="ui-confirm-popup-no ui-button-flat"/>
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirm-popup-yes" />
             </p:confirmPopup>
+        </h:form>
+
+        <!-- Successful dialog-->
+        <h:form>
+            <p:dialog header="Succesfully lent!" widgetVar="dlgSuccess" minHeight="40" 
+                      showEffect="fade" modal="true" closable="false">
+                <p:commandButton value="Ok" action="#{bookManagedBean.refresh()}"/>
+            </p:dialog>
         </h:form>
     </h:body>
 </html>
