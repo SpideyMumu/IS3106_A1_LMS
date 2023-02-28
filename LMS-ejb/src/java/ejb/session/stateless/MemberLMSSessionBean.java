@@ -4,6 +4,8 @@ import entity.Member;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
@@ -39,7 +41,7 @@ public class MemberLMSSessionBean implements MemberLMSSessionBeanLocal {
             }
         }
     }
-    
+
     @Override
     public Member retrieveMemberById(Long memberId) throws MemberNotFoundException {
         Member member = em.find(Member.class, memberId);
@@ -49,12 +51,23 @@ public class MemberLMSSessionBean implements MemberLMSSessionBeanLocal {
             throw new MemberNotFoundException("Member with ID " + memberId + " does not exist!");
         }
     }
-    
+
+    @Override
+    public Member retrieveMemberByIdentityNum(String idNo) throws MemberNotFoundException {
+        Query query = em.createQuery("SELECT m FROM Member m WHERE m.identityNo = :idNo");
+        query.setParameter("idNo", idNo);
+
+        try {
+            return (Member) query.getSingleResult();
+        } catch (NoResultException | NonUniqueResultException ex) {
+            throw new MemberNotFoundException("Member with ID " + idNo + " does not exist!");
+        }
+    }
+
     @Override
     public List<Member> retrieveAllMembers() {
         Query query = em.createQuery("SELECT m FROM Member m");
         return query.getResultList();
     }
 
-    
 }

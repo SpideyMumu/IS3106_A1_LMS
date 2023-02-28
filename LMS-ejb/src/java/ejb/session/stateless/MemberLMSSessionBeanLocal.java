@@ -24,4 +24,6 @@ public interface MemberLMSSessionBeanLocal {
     public Member retrieveMemberById(Long memberId) throws MemberNotFoundException;
 
     public List<Member> retrieveAllMembers();
+
+    public Member retrieveMemberByIdentityNum(String idNo) throws MemberNotFoundException;
 }
