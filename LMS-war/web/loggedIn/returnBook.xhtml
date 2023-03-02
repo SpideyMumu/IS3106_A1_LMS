@@ -10,9 +10,27 @@
     </h:head>
     <h:body>
         <nav>
-            <a href="home.xhtml">Home</a> |
-            <a href="viewAllBooks.xhtml">Books</a> |
-            <a href="viewAllMembers.xhtml">Members</a>
+            <h:form>
+                <p:menubar>
+                    <p:menuitem value="Home" icon="pi pi-fw pi-home" action="#{navigationBarManagedBean.navigateToHome()}">
+                    </p:menuitem>
+
+                    <p:submenu label="Books" icon="pi pi-fw pi-book">
+                        <p:menuitem value="Lend Book" action="#{navigationBarManagedBean.navigateToLendBooks()}">
+                        </p:menuitem>
+                        <p:menuitem value="Return Book" action="#{navigationBarManagedBean.navigateToReturnBooks()}">
+                        </p:menuitem>
+                    </p:submenu>
+
+
+                    <p:menuitem value="Members" icon="pi pi-fw pi-user" action="#{navigationBarManagedBean.navigateToMembers()}">
+                    </p:menuitem>
+
+                    <f:facet name="options">
+                        <p:commandButton value="Logout" icon="pi pi-fw pi-sign-out" action="#{staffProfileManagedBean.logout2()}"/>
+                    </f:facet>
+                </p:menubar>
+            </h:form>
         </nav>
         <h1>Return Books</h1>
         <p:divider />
@@ -58,6 +76,14 @@
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
             </p:confirmDialog>
+        </h:form>
+
+        <!-- Successful dialog-->
+        <h:form>
+            <p:dialog header="Succesfully Returned!" widgetVar="dlgSuccess" minHeight="40" 
+                      showEffect="fade" modal="true" closable="false">
+                <p:commandButton value="Ok" action="#{lendReturnManagedBean.refresh()}"/>
+            </p:dialog>
         </h:form>
     </h:body>
 </html>

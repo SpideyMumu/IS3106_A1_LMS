@@ -79,7 +79,7 @@ public class LendReturnManagedBean implements Serializable {
     }
 
     public String refresh() {
-        return "viewAllBooks.xhtml?faces-redirect=true";
+        return "returnBook.xhtml?faces-redirect=true";
     }
 
     public LendAndReturnLMSSessionBeanLocal getLendAndReturnLMSSessionBean() {

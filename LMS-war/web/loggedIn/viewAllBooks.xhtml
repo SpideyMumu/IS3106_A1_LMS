@@ -10,9 +10,29 @@
     </h:head>
     <h:body>
         <nav>
-            <a href="home.xhtml">Home</a> |
-            <a href="viewAllBooks.xhtml">Books</a> |
-            <a href="viewAllMembers.xhtml">Members</a>
+            <nav>
+            <h:form>
+                <p:menubar>
+                    <p:menuitem value="Home" icon="pi pi-fw pi-home" action="#{navigationBarManagedBean.navigateToHome()}">
+                    </p:menuitem>
+
+                    <p:submenu label="Books" icon="pi pi-fw pi-book">
+                        <p:menuitem value="Lend Book" action="#{navigationBarManagedBean.navigateToLendBooks()}">
+                        </p:menuitem>
+                        <p:menuitem value="Return Book" action="#{navigationBarManagedBean.navigateToReturnBooks()}">
+                        </p:menuitem>
+                    </p:submenu>
+
+
+                    <p:menuitem value="Members" icon="pi pi-fw pi-user" action="#{navigationBarManagedBean.navigateToMembers()}">
+                    </p:menuitem>
+
+                    <f:facet name="options">
+                        <p:commandButton value="Logout" icon="pi pi-fw pi-sign-out" action="#{staffProfileManagedBean.logout2()}"/>
+                    </f:facet>
+                </p:menubar>
+            </h:form>
+        </nav>
         </nav>
         <h1>Books</h1>
         <p:divider />
@@ -34,9 +54,6 @@
                             </span>
                             <p:commandButton style="margin-left: 5px" value="Lend Selected Book" action="#{bookManagedBean.lendBookDialog()}"/>    
                         </div>
-                        <p:commandButton value="Return Book" 
-                                         style="margin-right: 5px; margin-left: 5px"
-                                         action="#{bookManagedBean.moveToReturnPage()}"/>
                     </p:outputPanel>
                 </f:facet>
                 <p:column headerText="ID" field="bookId" filterable="false"/>
@@ -85,7 +102,7 @@
 
         <!-- Successful dialog-->
         <h:form>
-            <p:dialog header="Succesfully lent!" widgetVar="dlgSuccess" minHeight="40" 
+            <p:dialog header="Succesfully Lent!" widgetVar="dlgSuccess" minHeight="40" 
                       showEffect="fade" modal="true" closable="false">
                 <p:commandButton value="Ok" action="#{bookManagedBean.refresh()}"/>
             </p:dialog>

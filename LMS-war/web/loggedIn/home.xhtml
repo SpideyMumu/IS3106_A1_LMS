@@ -2,6 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <h:outputStylesheet name="css/styles.css"/>
@@ -9,19 +10,33 @@
     </h:head>
     <h:body>
         <nav>
-            <a href="home.xhtml">Home</a> |
-            <a href="viewAllBooks.xhtml">Books</a> |
-            <a href="viewAllMembers.xhtml">Members</a>
+            <h:form>
+                <p:menubar>
+                    <p:menuitem value="Home" icon="pi pi-fw pi-home" action="#{navigationBarManagedBean.navigateToHome()}">
+                    </p:menuitem>
+
+                    <p:submenu label="Books" icon="pi pi-fw pi-book">
+                        <p:menuitem value="Lend Book" action="#{navigationBarManagedBean.navigateToLendBooks()}">
+                        </p:menuitem>
+                        <p:menuitem value="Return Book" action="#{navigationBarManagedBean.navigateToReturnBooks()}">
+                        </p:menuitem>
+                    </p:submenu>
+
+
+                    <p:menuitem value="Members" icon="pi pi-fw pi-user" action="#{navigationBarManagedBean.navigateToMembers()}">
+                    </p:menuitem>
+
+                    <f:facet name="options">
+                        <p:commandButton value="Logout" icon="pi pi-fw pi-sign-out" action="#{staffProfileManagedBean.logout2()}"/>
+                    </f:facet>
+                </p:menubar>
+            </h:form>
         </nav>
         <header>
             <h1>
                 Successfully Logged In! Welcome, #{staffProfileManagedBean.loggedInStaff.firstName} #{staffProfileManagedBean.loggedInStaff.lastName} 
             </h1>
         </header>
-        <h:form id="form1">
-            <p:commandButton type ="submit" value="Log Out"
-                             action="#{staffProfileManagedBean.logout2()}" />
-        </h:form>
     </h:body>
 </html>
 
