@@ -57,17 +57,11 @@ public class StaffProfileManagedBean implements Serializable {
         }
     }
 
-    public String logout() {
-        System.out.println("Log Out successful");
-        username = null;
-        password = null;
-        return "/index.xhtml?faces-redirect=true";
-    }
-
     public String logout2() {
-        System.out.println("Log Out successful");
+        //System.out.println("Log Out successful");
         username = null;
         password = null;
+        loggedInStaff = null;
         return "/index.xhtml?faces-redirect=true";
     }
 
