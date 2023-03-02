@@ -11,23 +11,38 @@
     <h:body>
         <h1>Welcome to Libary Management System!</h1>
         <br/>
-        <div class="login">
+        <div class="loginCard">
             <h:form>
-                Please log in to proceed
-                <br/>
                 <div class="field">
-                    Username: <p:inputText value="#{staffProfileManagedBean.username}" 
-                                           required = "true" requiredMessage = "Please enter username" id="username"/>
-                    <h:message for="username" styleClass="error" />
+                    Please log in to proceed
                 </div>
                 <div class="field">
-                    Password: <p:password value="#{staffProfileManagedBean.password}"/>
+                    <div class="grid ui-fluid">
+                        <div class="col-12 md:col-4">
+                            <div class="ui-inputgroup">
+                                <div class="ui-inputgroup-addon"><i class="pi pi-user"></i></div>
+                                <p:inputText placeholder="Username" value="#{staffProfileManagedBean.username}" 
+                                             required = "true" requiredMessage = "Please enter username" id="username"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="grid ui-fluid">
+                        <div class="col-12 md:col-4">
+                            <div class="ui-inputgroup">
+                                <div class="ui-inputgroup-addon"><i class="pi pi-key"></i></div>
+                                <p:password placeholder="Password" value="#{staffProfileManagedBean.password}"
+                                            required = "true" requiredMessage = "Please enter password" id="password"/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="field">
                     <p:messages id="messages" showDetail="true">
                         <p:autoUpdate />
                     </p:messages>
-                    <p:commandButton value="Login" action="#{staffProfileManagedBean.login}"/>
+                    <p:commandButton value="Login" action="#{staffProfileManagedBean.login}" style="width: 100%"/>
                 </div>
             </h:form>
         </div>

@@ -65,8 +65,8 @@
         </h:form>
         
         <!-- Register Member Form -->
-        <p:dialog header="Register New Member" widgetVar="dlg" minHeight="40" width="500" 
-                  showEffect="fade" modal="true" appendTo="@(body)">
+        <p:dialog header="Register New Member" widgetVar="dlg" minHeight="40"
+                  showEffect="fade" modal="true" appendTo="@(body)" fitViewport="true" closeOnEscape="true">
             <h:form>
                 <div class="ui-fluid">
                     <div class="field">
@@ -76,10 +76,10 @@
                         Last Name: <p:inputText value="#{memberManagedBean.newMember.lastName}"/>
                     </div>
                     <div class="field">
-                        Gender: <p:selectOneRadio value = "#{memberManagedBean.newMember.gender}"> 
+                        Gender: <p:selectOneMenu value = "#{memberManagedBean.newMember.gender}"> 
                             <f:selectItem itemValue = "M" itemLabel = "Male" /> 
                             <f:selectItem itemValue = "F" itemLabel = "Female" />
-                        </p:selectOneRadio>    
+                        </p:selectOneMenu>    
                     </div>
                     <div class="field">
                         Age: <p:inputText value="#{memberManagedBean.newMember.age}" converterMessage="Please enter digits only for Age"/>

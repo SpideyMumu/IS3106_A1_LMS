@@ -8,7 +8,7 @@ and open the template in the editor.
     Author     : muhdm
 */
 body{
-    font-family: sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";;
     text-align: center
 }
 
@@ -16,9 +16,14 @@ form{
     text-align: left;
 }
 
-.login {
+.loginCard {
+    margin: auto;
     display: flex;
     justify-content: center;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    width: 40%;
+    padding: 10px;
 }
 .field {
     margin: 10px;
