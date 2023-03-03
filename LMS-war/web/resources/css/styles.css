@@ -16,8 +16,7 @@ form{
     text-align: left;
 }
 
-h2 {
-    text-align: left;
+h1, h2 {
     font-weight: normal;
 }
 
@@ -45,6 +44,7 @@ h2 {
 }
 
 .homeBody {
+    text-align: left;
     padding-left: 5%;
     padding-right: 5%;
 }

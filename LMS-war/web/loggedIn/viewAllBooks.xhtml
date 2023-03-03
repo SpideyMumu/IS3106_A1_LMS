@@ -11,38 +11,39 @@
     <h:body>
         <nav>
             <nav>
-            <h:form>
-                <p:menubar>
-                    <p:menuitem value="Home" icon="pi pi-fw pi-home" action="#{navigationBarManagedBean.navigateToHome()}">
-                    </p:menuitem>
-
-                    <p:submenu label="Books" icon="pi pi-fw pi-book">
-                        <p:menuitem value="Lend Book" action="#{navigationBarManagedBean.navigateToLendBooks()}">
+                <h:form>
+                    <p:menubar>
+                        <p:menuitem value="Home" icon="pi pi-fw pi-home" action="#{navigationBarManagedBean.navigateToHome()}">
                         </p:menuitem>
-                        <p:menuitem value="Return Book" action="#{navigationBarManagedBean.navigateToReturnBooks()}">
+
+                        <p:submenu label="Books" icon="pi pi-fw pi-book">
+                            <p:menuitem value="Lend Book" action="#{navigationBarManagedBean.navigateToLendBooks()}">
+                            </p:menuitem>
+                            <p:menuitem value="Return Book" action="#{navigationBarManagedBean.navigateToReturnBooks()}">
+                            </p:menuitem>
+                        </p:submenu>
+
+
+                        <p:menuitem value="Members" icon="pi pi-fw pi-user" action="#{navigationBarManagedBean.navigateToMembers()}">
                         </p:menuitem>
-                    </p:submenu>
 
-
-                    <p:menuitem value="Members" icon="pi pi-fw pi-user" action="#{navigationBarManagedBean.navigateToMembers()}">
-                    </p:menuitem>
-
-                    <f:facet name="options">
-                        <p:commandButton value="Logout" icon="pi pi-fw pi-sign-out" action="#{staffProfileManagedBean.logout2()}"/>
-                    </f:facet>
-                </p:menubar>
-            </h:form>
-        </nav>
+                        <f:facet name="options">
+                            <p:commandButton value="Logout" icon="pi pi-fw pi-sign-out" action="#{staffProfileManagedBean.logout2()}"/>
+                        </f:facet>
+                    </p:menubar>
+                </h:form>
+            </nav>
         </nav>
         <h1>Available Books</h1>
         <p:divider />
+
+        <!-- Available Books Data Table -->
         <h:form id="tableForm">
             <p:dataTable id ="books" var="book" value="#{bookManagedBean.availBooks}"
                          widgetVar="booksTable" rowKey="#{book.bookId}"
                          emptyMessage="No books found with given criteria"
                          filteredValue="#{bookManagedBean.filteredBooks}"
                          globalFilterFunction="#{bookManagedBean.globalFilterFunction}"
-                         selection="#{bookManagedBean.selectedBook}" selectionMode="single"
                          >
                 <f:facet name="header">
                     <p:outputPanel style="display: flex; justify-content: space-between">
@@ -52,7 +53,7 @@
                                 <p:inputText id="globalFilter" onkeyup="PF('booksTable').filter()"
                                              placeholder="Search Available Books"/>
                             </span>
-                            <p:commandButton style="margin-left: 5px" value="Lend Selected Book" action="#{bookManagedBean.lendBookDialog()}"/>    
+
                         </div>
                     </p:outputPanel>
                 </f:facet>
@@ -60,8 +61,14 @@
                 <p:column headerText="Title" field="title" filterable="false"/>
                 <p:column headerText="Author" field="author" filterable="false"/>
                 <p:column headerText="ISBN" field="isbn" filterable="false"/>
+                <p:column style="text-align: center">
+                    <p:commandButton style="margin-left: 5px" value="Lend" action="#{bookManagedBean.lendBookDialog()}">    
+                        <f:setPropertyActionListener value="#{book}"
+                                                     target="#{bookManagedBean.selectedBook}"/>
+                    </p:commandButton>   
+                </p:column>
                 <f:facet name="footer">
-                    <p:messages id="messages" showDetail="true">
+                    <p:messages id="messages" showDetail="true" for="globalFilter">
                         <p:autoUpdate />
                     </p:messages>
 

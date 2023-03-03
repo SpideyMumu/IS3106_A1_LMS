@@ -34,13 +34,14 @@
         </nav>
         <h1>Unreturned Books</h1>
         <p:divider />
+        
+        <!-- Unreturned Books Data Table -->
         <h:form id="tableForm">
             <p:dataTable id ="lends" var="lend" value="#{lendReturnManagedBean.lendAndReturns}"
                          widgetVar="lendsTable" rowKey="#{lend.lendId}"
                          emptyMessage="No lends found with given criteria"
                          filteredValue="#{lendReturnManagedBean.filteredLendAndReturns}"
                          globalFilterFunction="#{lendReturnManagedBean.globalFilterFunction}"
-                         selection="#{lendReturnManagedBean.selectedLendAndReturn}" selectionMode="single"
                          >
                 <f:facet name="header">
                     <p:outputPanel style="display: flex; justify-content: space-between">
@@ -50,11 +51,7 @@
                                 <p:inputText id="globalFilter" onkeyup="PF('lendsTable').filter()"
                                              placeholder="Search Unreturned Books"/>
                             </span>
-                            <p:commandButton style="margin-left: 5px" value="Return Selected Book" 
-                                             action="#{lendReturnManagedBean.returnBook()}"
-                                             update="lends">
-                                <p:confirm header="Confirm Return" message="Are you sure the selected member has returned the book?" icon="pi pi-exclamation-triangle"/>
-                            </p:commandButton>    
+                             
                         </div>
                     </p:outputPanel>
                 </f:facet>
@@ -66,6 +63,15 @@
                 </p:column>
                 <p:column headerText="Member" field="member" filterable="false"/>
                 <p:column headerText="Book" field="book" filterable="false"/>
+                <p:column style="text-align: center">
+                    <p:commandButton value="Return" 
+                                             action="#{lendReturnManagedBean.returnBook()}"
+                                             update="lends">
+                                <p:confirm header="Confirm Return" message="Are you sure the selected member has returned the book?" icon="pi pi-exclamation-triangle"/>
+                                <f:setPropertyActionListener value="#{lend}"
+                                                             target="#{lendReturnManagedBean.selectedLendAndReturn}"/>
+                            </p:commandButton>   
+                </p:column>
                 <f:facet name="footer">
                     <p:messages id="messages" showDetail="true">
                         <p:autoUpdate />

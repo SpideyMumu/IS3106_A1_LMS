@@ -37,6 +37,7 @@
         <h1>Members</h1>
         <p:divider/>
         
+        <!-- Members Data Table -->
         <h:form>
             <p:dataTable id ="members" var="member" value="#{memberManagedBean.members}" 
                          widgetVar="membersTable"
@@ -45,11 +46,14 @@
                          globalFilterFunction="#{memberManagedBean.globalFilterFunction}">
                 <f:facet name="header">
                     <p:outputPanel style="display: flex; justify-content: space-between">
-                        <span class="ui-input-icon-left">
-                            <i class="pi pi-search"/>
-                            <p:inputText id="globalFilter" style="width: 100%" onkeyup="PF('membersTable').filter()"
-                                         placeholder="Search Member"/>
-                        </span>
+                        <div>
+                            <span class="ui-input-icon-left">
+                                <i class="pi pi-search"/>
+                                <p:inputText id="globalFilter" onkeyup="PF('membersTable').filter()"
+                                             placeholder="Search Members"/>
+                            </span>
+
+                        </div>
                         <p:commandButton value="Register New Member" style="margin: 5px;" onclick="PF('dlg').show()"/>
                     </p:outputPanel>
                 </f:facet>
