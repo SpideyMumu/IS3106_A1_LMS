@@ -13,7 +13,7 @@
         <br/>
         <div class="loginCard">
             <h:form>
-                <div class="field">
+                <div style="text-align: center">
                     Please log in to proceed
                 </div>
                 <div class="field">
@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="field">
-                    <p:messages id="messages" showDetail="true">
+                    <p:messages id="messages" showDetail="true" skipDetailIfEqualsSummary="true">
                         <p:autoUpdate />
                     </p:messages>
                     <p:commandButton value="Login" action="#{staffProfileManagedBean.login}" style="width: 100%"/>

@@ -34,9 +34,29 @@
         </nav>
         <header>
             <h1>
-                Successfully Logged In! Welcome, #{staffProfileManagedBean.loggedInStaff.firstName} #{staffProfileManagedBean.loggedInStaff.lastName} 
+                Welcome, #{staffProfileManagedBean.loggedInStaff.firstName} #{staffProfileManagedBean.loggedInStaff.lastName} 
             </h1>
         </header>
+
+        <div class="homeBody">
+            <h2>Stats Overview</h2>
+            <div class="homeCard">
+                <div class="stat">
+                    <p class="statNum">#{bookManagedBean.availBooks.size()}</p>
+                    Available Books
+                </div>
+                <p:divider layout="vertical" />
+                <div class="stat">
+                    <p class="statNum">#{lendReturnManagedBean.lendAndReturns.size()}</p> 
+                    Unreturned Books
+                </div>
+                <p:divider layout="vertical" />
+                <div class="stat">
+                    <p class="statNum">#{memberManagedBean.members.size()}</p> 
+                    Registered Members
+                </div>
+            </div>
+        </div>
     </h:body>
 </html>
 

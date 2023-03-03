@@ -9,11 +9,16 @@ and open the template in the editor.
 */
 body{
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";;
-    text-align: center
+    text-align: center;
 }
 
 form{
     text-align: left;
+}
+
+h2 {
+    text-align: left;
+    font-weight: normal;
 }
 
 .loginCard {
@@ -25,6 +30,37 @@ form{
     width: 40%;
     padding: 10px;
 }
+
+.homeCard {
+    text-align: left;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+    padding: 15px;
+    border-radius: 5px;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    display:flex; 
+    justify-content: space-evenly;
+}
+
+.homeBody {
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.statNum {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 0;
+    text-align: center
+}
+
+.stat {
+    padding-bottom: 50px;
+    padding-top: 50px;
+}
+
 .field {
     margin: 10px;
     text-align: left
