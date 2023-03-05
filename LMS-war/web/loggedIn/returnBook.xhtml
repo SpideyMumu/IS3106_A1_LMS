@@ -1,100 +1,84 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <h:outputStylesheet name="css/styles.css"/>
-        <title>Unreturned Books</title>
-    </h:head>
-    <h:body>
-        <nav>
-            <h:form>
-                <p:menubar>
-                    <p:menuitem value="Home" icon="pi pi-fw pi-home" action="#{navigationBarManagedBean.navigateToHome()}">
-                    </p:menuitem>
+    
+    <body>
 
-                    <p:submenu label="Books" icon="pi pi-fw pi-book">
-                        <p:menuitem value="Lend Book" action="#{navigationBarManagedBean.navigateToLendBooks()}">
-                        </p:menuitem>
-                        <p:menuitem value="Return Book" action="#{navigationBarManagedBean.navigateToReturnBooks()}">
-                        </p:menuitem>
-                    </p:submenu>
+        <ui:composition template="./defaultLoggedIn.xhtml">
+            <ui:define name="title">
+                Return Books
+            </ui:define>
+            <ui:define name="content">
+                <h1>Unreturned Books</h1>
+                <p:divider />
 
+                <!-- Unreturned Books Data Table -->
+                <h:form id="tableForm">
+                    <p:dataTable id ="lends" var="lend" value="#{lendReturnManagedBean.lendAndReturns}"
+                                 widgetVar="lendsTable" rowKey="#{lend.lendId}"
+                                 emptyMessage="No lends found with given criteria"
+                                 filteredValue="#{lendReturnManagedBean.filteredLendAndReturns}"
+                                 globalFilterFunction="#{lendReturnManagedBean.globalFilterFunction}"
+                                 >
+                        <f:facet name="header">
+                            <p:outputPanel style="display: flex; justify-content: space-between">
+                                <div>
+                                    <span class="ui-input-icon-left">
+                                        <i class="pi pi-search"/>
+                                        <p:inputText id="globalFilter" onkeyup="PF('lendsTable').filter()"
+                                                     placeholder="Search Unreturned Books"/>
+                                    </span>
 
-                    <p:menuitem value="Members" icon="pi pi-fw pi-user" action="#{navigationBarManagedBean.navigateToMembers()}">
-                    </p:menuitem>
-
-                    <f:facet name="options">
-                        <p:commandButton value="Logout" icon="pi pi-fw pi-sign-out" action="#{staffProfileManagedBean.logout2()}"/>
-                    </f:facet>
-                </p:menubar>
-            </h:form>
-        </nav>
-        <h1>Unreturned Books</h1>
-        <p:divider />
-        
-        <!-- Unreturned Books Data Table -->
-        <h:form id="tableForm">
-            <p:dataTable id ="lends" var="lend" value="#{lendReturnManagedBean.lendAndReturns}"
-                         widgetVar="lendsTable" rowKey="#{lend.lendId}"
-                         emptyMessage="No lends found with given criteria"
-                         filteredValue="#{lendReturnManagedBean.filteredLendAndReturns}"
-                         globalFilterFunction="#{lendReturnManagedBean.globalFilterFunction}"
-                         >
-                <f:facet name="header">
-                    <p:outputPanel style="display: flex; justify-content: space-between">
-                        <div>
-                            <span class="ui-input-icon-left">
-                                <i class="pi pi-search"/>
-                                <p:inputText id="globalFilter" onkeyup="PF('lendsTable').filter()"
-                                             placeholder="Search Unreturned Books"/>
-                            </span>
-                             
-                        </div>
-                    </p:outputPanel>
-                </f:facet>
-                <p:column headerText="ID" field="lendId" filterable="false"/>
-                <p:column headerText="Lend Date" filterable="false">
-                    <h:outputText value="#{lend.lendDate}">
-                    <f:convertDateTime type="date" pattern="yyyy-MM-dd HH:mm"/>
-                    </h:outputText>
-                </p:column>
-                <p:column headerText="Member" field="member" filterable="false"/>
-                <p:column headerText="Book" field="book" filterable="false"/>
-                <p:column style="text-align: center">
-                    <p:commandButton value="Return" 
+                                </div>
+                            </p:outputPanel>
+                        </f:facet>
+                        <p:column headerText="ID" field="lendId" filterable="false"/>
+                        <p:column headerText="Lend Date" filterable="false">
+                            <h:outputText value="#{lend.lendDate}">
+                                <f:convertDateTime type="date" pattern="yyyy-MM-dd HH:mm"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Member" field="member" filterable="false"/>
+                        <p:column headerText="Book" field="book" filterable="false"/>
+                        <p:column style="text-align: center">
+                            <p:commandButton value="Return" 
                                              action="#{lendReturnManagedBean.returnBook()}"
                                              update="lends">
                                 <p:confirm header="Confirm Return" message="Are you sure the selected member has returned the book?" icon="pi pi-exclamation-triangle"/>
                                 <f:setPropertyActionListener value="#{lend}"
                                                              target="#{lendReturnManagedBean.selectedLendAndReturn}"/>
                             </p:commandButton>   
-                </p:column>
-                <f:facet name="footer">
-                    <p:messages id="messages" showDetail="true">
-                        <p:autoUpdate />
-                    </p:messages>
-                </f:facet>
-            </p:dataTable>
-        </h:form>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:messages id="messages" showDetail="true">
+                                <p:autoUpdate />
+                            </p:messages>
+                        </f:facet>
+                    </p:dataTable>
+                </h:form>
 
-        <!-- confirmation dialog for returning -->
-        <h:form id="dlgForm">
-            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
-                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
-                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
-            </p:confirmDialog>
-        </h:form>
+                <!-- confirmation dialog for returning -->
+                <h:form id="dlgForm">
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
+                    </p:confirmDialog>
+                </h:form>
 
-        <!-- Successful dialog-->
-        <h:form>
-            <p:dialog header="Succesfully Returned!" widgetVar="dlgSuccess" minHeight="40" 
-                      showEffect="fade" modal="true" closable="false">
-                <p:commandButton value="Ok" action="#{lendReturnManagedBean.refresh()}"/>
-            </p:dialog>
-        </h:form>
-    </h:body>
+                <!-- Successful dialog-->
+                <h:form>
+                    <p:dialog header="Succesfully Returned!" widgetVar="dlgSuccess" minHeight="40" 
+                              showEffect="fade" modal="true" closable="false">
+                        <p:commandButton value="Ok" action="#{lendReturnManagedBean.refresh()}"/>
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+    </body>
 </html>
 

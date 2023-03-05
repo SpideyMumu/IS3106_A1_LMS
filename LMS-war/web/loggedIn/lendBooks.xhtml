@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./defaultLoggedIn.xhtml">
+            <ui:define name="title">
+                Lend Books
+            </ui:define>
+
+            <ui:define name="content">
+                <h1>Available Books</h1>
+                <p:divider />
+
+                <!-- Available Books Data Table -->
+                <h:form id="tableForm">
+                    <p:dataTable id ="books" var="book" value="#{bookManagedBean.availBooks}"
+                                 widgetVar="booksTable" rowKey="#{book.bookId}"
+                                 emptyMessage="No books found with given criteria"
+                                 filteredValue="#{bookManagedBean.filteredBooks}"
+                                 globalFilterFunction="#{bookManagedBean.globalFilterFunction}"
+                                 >
+                        <f:facet name="header">
+                            <p:outputPanel style="display: flex; justify-content: space-between">
+                                <div>
+                                    <span class="ui-input-icon-left">
+                                        <i class="pi pi-search"/>
+                                        <p:inputText id="globalFilter" onkeyup="PF('booksTable').filter()"
+                                                     placeholder="Search Available Books"/>
+                                    </span>
+
+                                </div>
+                            </p:outputPanel>
+                        </f:facet>
+                        <p:column headerText="ID" field="bookId" filterable="false"/>
+                        <p:column headerText="Title" field="title" filterable="false"/>
+                        <p:column headerText="Author" field="author" filterable="false"/>
+                        <p:column headerText="ISBN" field="isbn" filterable="false"/>
+                        <p:column style="text-align: center">
+                            <p:commandButton style="margin-left: 5px" value="Lend" action="#{bookManagedBean.lendBookDialog()}">    
+                                <f:setPropertyActionListener value="#{book}"
+                                                             target="#{bookManagedBean.selectedBook}"/>
+                            </p:commandButton>   
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:messages id="messages" showDetail="true" for="globalFilter">
+                                <p:autoUpdate />
+                            </p:messages>
+
+                        </f:facet>
+                    </p:dataTable>
+                </h:form>
+
+                <!-- dialog lend book form -->
+                <h:form id="lendForm">
+                    <div class="ui-fluid">
+                        <p:dialog header="Lending Book" widgetVar="dlg" minHeight="40" width="500" 
+                                  showEffect="fade" modal="true">
+                            <div class="field">
+                                <p:messages id="dlgMessages" showDetail="true">
+                                    <p:autoUpdate />
+                                </p:messages>
+                                <p:inputText placeholder="Enter member identity number" value="#{bookManagedBean.memberToLendTypedID}"/>
+                            </div>
+                            <div class="field">
+                                <p:commandButton value="Lend Selected Book" action="#{bookManagedBean.lendBook()}">
+                                    <p:confirm type="popup" 
+                                               header="Confirmation" 
+                                               message="Are you sure you want to proceed?" 
+                                               icon="pi pi-exclamation-triangle"/>
+                                </p:commandButton>
+                            </div>
+                        </p:dialog>
+                    </div>
+                </h:form>
+
+                <!-- confirm popup -->
+                <h:form>
+                    <p:confirmPopup global="true">
+                        <p:commandButton value="No" type="button" styleClass="ui-confirm-popup-no ui-button-flat"/>
+                        <p:commandButton value="Yes" type="button" styleClass="ui-confirm-popup-yes" />
+                    </p:confirmPopup>
+                </h:form>
+
+                <!-- Successful dialog-->
+                <h:form>
+                    <p:dialog header="Succesfully Lent!" widgetVar="dlgSuccess" minHeight="40" 
+                              showEffect="fade" modal="true" closable="false">
+                        <p:commandButton value="Ok" action="#{bookManagedBean.refresh()}"/>
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

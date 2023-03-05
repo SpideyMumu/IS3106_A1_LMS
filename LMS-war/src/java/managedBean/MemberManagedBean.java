@@ -50,7 +50,7 @@ public class MemberManagedBean {
         System.out.println("register member method called");
         try {
             memberLMSSessionBean.createNewMember(newMember);
-            return "viewAllMembers.xhtml?faces-redirect=true";
+            return "members.xhtml?faces-redirect=true";
         } catch (UsernameExistException | UnknownPersistenceException ex) {
             //String errorMessage = "An error occured: " + ex.getMessage();
             System.out.println("We got to catch the error here");

@@ -10,29 +10,27 @@
     </h:head>
     <h:body>
         <nav>
-            <nav>
-                <h:form>
-                    <p:menubar>
-                        <p:menuitem value="Home" icon="pi pi-fw pi-home" action="#{navigationBarManagedBean.navigateToHome()}">
+            <h:form>
+                <p:menubar>
+                    <p:menuitem value="Home" icon="pi pi-fw pi-home" action="#{navigationBarManagedBean.navigateToHome()}">
+                    </p:menuitem>
+
+                    <p:submenu label="Books" icon="pi pi-fw pi-book">
+                        <p:menuitem value="Lend Book" action="#{navigationBarManagedBean.navigateToLendBooks()}">
                         </p:menuitem>
-
-                        <p:submenu label="Books" icon="pi pi-fw pi-book">
-                            <p:menuitem value="Lend Book" action="#{navigationBarManagedBean.navigateToLendBooks()}">
-                            </p:menuitem>
-                            <p:menuitem value="Return Book" action="#{navigationBarManagedBean.navigateToReturnBooks()}">
-                            </p:menuitem>
-                        </p:submenu>
-
-
-                        <p:menuitem value="Members" icon="pi pi-fw pi-user" action="#{navigationBarManagedBean.navigateToMembers()}">
+                        <p:menuitem value="Return Book" action="#{navigationBarManagedBean.navigateToReturnBooks()}">
                         </p:menuitem>
+                    </p:submenu>
 
-                        <f:facet name="options">
-                            <p:commandButton value="Logout" icon="pi pi-fw pi-sign-out" action="#{staffProfileManagedBean.logout2()}"/>
-                        </f:facet>
-                    </p:menubar>
-                </h:form>
-            </nav>
+
+                    <p:menuitem value="Members" icon="pi pi-fw pi-user" action="#{navigationBarManagedBean.navigateToMembers()}">
+                    </p:menuitem>
+
+                    <f:facet name="options">
+                        <p:commandButton value="Logout" icon="pi pi-fw pi-sign-out" action="#{staffProfileManagedBean.logout2()}"/>
+                    </f:facet>
+                </p:menubar>
+            </h:form>
         </nav>
         <h1>Available Books</h1>
         <p:divider />

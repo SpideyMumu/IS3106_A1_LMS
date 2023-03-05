@@ -110,12 +110,8 @@ public class BookManagedBean implements Serializable {
         }
     }
     
-    public String moveToReturnPage() {
-        return "returnBook.xhtml?faces-redirect=true";
-    }
-    
     public String refresh() {
-        return "viewAllBooks.xhtml?faces-redirect=true";
+        return "lendBooks.xhtml?faces-redirect=true";
     }
     
     // For data table global search

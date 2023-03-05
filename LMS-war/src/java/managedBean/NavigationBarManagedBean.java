@@ -21,7 +21,7 @@ public class NavigationBarManagedBean implements Serializable {
     }
     
     public String navigateToLendBooks() {
-        return "viewAllBooks.xhtml?faces-redirect=true";
+        return "lendBooks.xhtml?faces-redirect=true";
     }
     
     public String navigateToReturnBooks() {
@@ -33,7 +33,7 @@ public class NavigationBarManagedBean implements Serializable {
     }
     
      public String navigateToMembers() {
-        return "viewAllMembers.xhtml?faces-redirect=true";
+        return "members.xhtml?faces-redirect=true";
     }
     
 }
