@@ -31,6 +31,7 @@ public class MemberManagedBean {
     @EJB
     private MemberLMSSessionBeanLocal memberLMSSessionBean;
     
+    private Member member;
     private List<Member> members;
     
     private List<Member> filteredMembers;
@@ -105,6 +106,14 @@ public class MemberManagedBean {
 
     public void setNewMember(Member newMember) {
         this.newMember = newMember;
+    }
+
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
     }
     
     

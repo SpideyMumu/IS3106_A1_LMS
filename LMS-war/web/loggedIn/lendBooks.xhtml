@@ -66,6 +66,7 @@
                                     <p:autoUpdate />
                                 </p:messages>
                                 <p:inputText placeholder="Enter member identity number" value="#{bookManagedBean.memberToLendTypedID}"/>
+                                
                             </div>
                             <div class="field">
                                 <p:commandButton value="Lend Selected Book" action="#{bookManagedBean.lendBook()}">
@@ -100,3 +101,17 @@
 
     </body>
 </html>
+
+<!-- Select One menu code. Currently does not work as there is no converter        
+                    Select Member: <br/>
+                                <p:selectOneMenu id="searchMember" value="#{bookManagedBean.memberToLend}" converter="#{memberConverter}"
+                                                 filter="true" filterMatchMode="startsWith">
+                                    <f:selectItems value="#{memberManagedBean.members}" var="member"
+                                                   itemLabel="#{member.firstName} #{member.lastName}" itemValue="#{member}"/>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{memberManagedBean.members.size()} members"
+                                                      style="font-weight:bold;" styleClass="py-1 block"/>
+                                    </f:facet>
+                                </p:selectOneMenu>
+-->
