@@ -39,7 +39,7 @@
                         <p:column headerText="ID" field="lendId" filterable="false"/>
                         <p:column headerText="Lend Date" filterable="false">
                             <h:outputText value="#{lend.lendDate}">
-                                <f:convertDateTime type="date" pattern="yyyy-MM-dd HH:mm"/>
+                                <f:convertDateTime type="both" pattern="yyyy-MM-dd HH:mm" timeZone="GMT+08:00"/>
                             </h:outputText>
                         </p:column>
                         <p:column headerText="Member" field="member" filterable="false"/>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./defaultLoggedIn.xhtml">
+
+            <ui:define name="title">
+                Member Details
+            </ui:define>
+
+            <ui:define name="content">
+                <h1>Member Details</h1>
+
+                <div class="homeBody">
+                    <h2>#{memberManagedBean.selectedMember.firstName} #{memberManagedBean.selectedMember.lastName}'s Lend History</h2>
+                    <p:dataTable id="lendAndReturns" var="lend" value="#{memberManagedBean.selectedMember.lendAndReturns}"
+                                 widgetVar="lendAndReturnsTable" emptyMessage="No lends found">
+                        <p:column headerText="Lend ID" field="lendId" filterable="false"/>
+                        <p:column headerText="Book" field="book" filterable="false"/>
+                        <p:column headerText="Lend Date" filterable="false">
+                            <h:outputText value="#{lend.lendDate}">
+                                <f:convertDateTime type="date" pattern="yyyy-MM-dd HH:mm"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Return Date">
+                            <h:outputText value="#{lend.returnDate}">
+                                <f:convertDateTime type="both" pattern="yyyy-MM-dd HH:mm" timeZone="GMT+08:00"/>
+                            </h:outputText>
+                        </p:column>
+                    </p:dataTable>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

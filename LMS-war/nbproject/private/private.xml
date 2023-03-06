@@ -5,14 +5,14 @@
         <group>
             <file>file:/D:/IS2103_IS3106_programs/LMS/LMS-war/web/index.xhtml</file>
             <file>file:/D:/IS2103_IS3106_programs/LMS/LMS-war/src/java/managedBean/MemberManagedBean.java</file>
+            <file>file:/D:/IS2103_IS3106_programs/LMS/LMS-war/src/java/managedBean/MemberConverter.java</file>
             <file>file:/D:/IS2103_IS3106_programs/LMS/LMS-war/src/java/managedBean/BookManagedBean.java</file>
             <file>file:/D:/IS2103_IS3106_programs/LMS/LMS-war/web/loggedIn/lendBooks.xhtml</file>
             <file>file:/D:/IS2103_IS3106_programs/LMS/LMS-war/web/loggedIn/returnBook.xhtml</file>
             <file>file:/D:/IS2103_IS3106_programs/LMS/LMS-war/web/resources/css/styles.css</file>
             <file>file:/D:/IS2103_IS3106_programs/LMS/LMS-war/web/loggedIn/members.xhtml</file>
-            <file>file:/D:/IS2103_IS3106_programs/LMS/LMS-war/web/loggedIn/defaultLoggedIn.xhtml</file>
-            <file>file:/D:/IS2103_IS3106_programs/LMS/LMS-war/src/java/managedBean/LendReturnManagedBean.java</file>
             <file>file:/D:/IS2103_IS3106_programs/LMS/LMS-war/web/loggedIn/home.xhtml</file>
+            <file>file:/D:/IS2103_IS3106_programs/LMS/LMS-war/web/loggedIn/memberDetails.xhtml</file>
             <file>file:/D:/IS2103_IS3106_programs/LMS/LMS-war/src/java/managedBean/NavigationBarManagedBean.java</file>
         </group>
     </open-files>

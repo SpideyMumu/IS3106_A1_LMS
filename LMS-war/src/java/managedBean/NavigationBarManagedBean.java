@@ -19,21 +19,25 @@ public class NavigationBarManagedBean implements Serializable {
 
     public NavigationBarManagedBean() {
     }
-    
+
     public String navigateToLendBooks() {
         return "lendBooks.xhtml?faces-redirect=true";
     }
-    
+
     public String navigateToReturnBooks() {
         return "returnBook.xhtml?faces-redirect=true";
     }
-    
+
     public String navigateToHome() {
         return "home.xhtml?faces-redirect=true";
     }
-    
-     public String navigateToMembers() {
+
+    public String navigateToMembers() {
         return "members.xhtml?faces-redirect=true";
     }
     
+    public String navigateToMemberDetails() {
+        return "memberDetails.xhtml";
+    }
+
 }

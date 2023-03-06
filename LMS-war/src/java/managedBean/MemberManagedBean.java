@@ -7,6 +7,7 @@ package managedBean;
 
 import ejb.session.stateless.MemberLMSSessionBeanLocal;
 import entity.Member;
+import java.io.Serializable;
 import static java.lang.Integer.getInteger;
 import java.util.List;
 import java.util.Locale;
@@ -14,8 +15,10 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import org.primefaces.util.LangUtils;
 import util.exception.UnknownPersistenceException;
 import util.exception.UsernameExistException;
@@ -30,43 +33,43 @@ public class MemberManagedBean {
 
     @EJB
     private MemberLMSSessionBeanLocal memberLMSSessionBean;
-    
-    private Member member;
+
+    private Member selectedMember;
     private List<Member> members;
-    
+
     private List<Member> filteredMembers;
-    
+
     private Member newMember;
 
     public MemberManagedBean() {
     }
-    
+
     @PostConstruct
     public void init() {
         members = memberLMSSessionBean.retrieveAllMembers();
         newMember = new Member();
     }
-    
+
     public String registerMember() {
-        System.out.println("register member method called");
         try {
             memberLMSSessionBean.createNewMember(newMember);
             return "members.xhtml?faces-redirect=true";
-        } catch (UsernameExistException | UnknownPersistenceException ex) {
-            //String errorMessage = "An error occured: " + ex.getMessage();
-            System.out.println("We got to catch the error here");
+        } catch (UsernameExistException ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", ex.getMessage()));
+            return "";
+        } catch (UnknownPersistenceException ex1) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Please fill in all fields"));
             return "";
         }
     }
-    
+
     // For data table global search
     public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
         String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase();
         if (LangUtils.isValueBlank(filterText)) {
             return true;
         }
-        
+
         //System.out.println("Printing FILTER TEXT: "+ filterText);
         int filterInt;
         try {
@@ -108,13 +111,12 @@ public class MemberManagedBean {
         this.newMember = newMember;
     }
 
-    public Member getMember() {
-        return member;
+    public Member getSelectedMember() {
+        return selectedMember;
     }
 
-    public void setMember(Member member) {
-        this.member = member;
+    public void setSelectedMember(Member selectedMember) {
+        this.selectedMember = selectedMember;
     }
-    
-    
+
 }

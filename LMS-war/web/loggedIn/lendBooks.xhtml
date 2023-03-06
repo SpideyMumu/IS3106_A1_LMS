@@ -65,14 +65,27 @@
                                 <p:messages id="dlgMessages" showDetail="true">
                                     <p:autoUpdate />
                                 </p:messages>
-                                <p:inputText placeholder="Enter member identity number" value="#{bookManagedBean.memberToLendTypedID}"/>
-                                
+                                </div>
+                                <div class="field">
+                                Select Member: <br/>
+                                </div>
+                            <div class="field">
+                                <p:selectOneMenu id="searchMember" value="#{bookManagedBean.memberToLend}" converter="#{memberConverter}"
+                                                 filter="true" filterMatchMode="startsWith">
+                                    <f:selectItems value="#{memberManagedBean.members}" var="member"
+                                                   itemLabel="#{member.firstName} #{member.lastName}" itemValue="#{member}"/>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{memberManagedBean.members.size()} members"
+                                                      style="font-weight:bold;" styleClass="py-1 block"/>
+                                    </f:facet>
+                                </p:selectOneMenu>
                             </div>
                             <div class="field">
                                 <p:commandButton value="Lend Selected Book" action="#{bookManagedBean.lendBook()}">
                                     <p:confirm type="popup" 
                                                header="Confirmation" 
-                                               message="Are you sure you want to proceed?" 
+                                               message="Are you sure you want to lend this book?" 
                                                icon="pi pi-exclamation-triangle"/>
                                 </p:commandButton>
                             </div>
@@ -114,4 +127,8 @@
                                                       style="font-weight:bold;" styleClass="py-1 block"/>
                                     </f:facet>
                                 </p:selectOneMenu>
+
+
+<p:inputText placeholder="Enter member identity number" value="#{bookManagedBean.memberToLendTypedID}"/>
+
 -->

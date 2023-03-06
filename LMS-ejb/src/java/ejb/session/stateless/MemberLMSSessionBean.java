@@ -54,6 +54,7 @@ public class MemberLMSSessionBean implements MemberLMSSessionBeanLocal {
 
     @Override
     public Member retrieveMemberByIdentityNum(String idNo) throws MemberNotFoundException {
+        //System.out.println("test");
         Query query = em.createQuery("SELECT m FROM Member m WHERE m.identityNo = :idNo");
         query.setParameter("idNo", idNo);
 

@@ -42,7 +42,7 @@ public class BookManagedBean implements Serializable {
 
     @EJB
     private BookLMSSessionBeanLocal bookLMSSessionBean;
-    
+
     private List<Book> books;
 
     private List<Book> availBooks;
@@ -50,9 +50,9 @@ public class BookManagedBean implements Serializable {
     private List<Book> filteredBooks;
 
     private Book selectedBook;
-    
+
     private String memberToLendTypedID;
-    
+
     private Member memberToLend;
 
     public BookManagedBean() {
@@ -64,7 +64,6 @@ public class BookManagedBean implements Serializable {
         availBooks = bookLMSSessionBean.retrievAllAvailBooks();
     }
 
-    
     // method to open dialog for lending book form
     public void lendBookDialog() {
         //System.out.println("lend book method called");
@@ -81,39 +80,49 @@ public class BookManagedBean implements Serializable {
                             "You have selected '" + selectedBook.getTitle() + "'. Please proceed to select a member to lend to."));
         }
     }
-    
+
     // Confirm lending book after selecting member
     public void lendBook() {
         try {
             memberToLend = memberLMSSessionBean.retrieveMemberByIdentityNum(memberToLendTypedID);
-             FacesContext.getCurrentInstance().addMessage("lendForm:dlgMessages",
+            FacesContext.getCurrentInstance().addMessage("lendForm:dlgMessages",
                     new FacesMessage(null,
                             "You have selected '" + selectedBook.getTitle() + "' that will be lent to " + memberToLend.getFirstName() + " " + memberToLend.getLastName()));
-             LendAndReturn newLend = new LendAndReturn();
-             newLend.setLendDate(new Date());
+            LendAndReturn newLend = new LendAndReturn();
+            newLend.setLendDate(new Date());
             try {
                 lendAndReturnLMSSessionBean.createNewLendAndReturn(newLend, memberToLend.getMemberId(), selectedBook.getBookId());
                 //open another dialog maybe then that dialog redirects to refreshed paged
                 PrimeFaces current = PrimeFaces.current();
                 current.executeScript("PF('dlg').hide();");
-                current.executeScript("PF('dlgSuccess').show();"); 
+                current.executeScript("PF('dlgSuccess').show();");
             } catch (UnknownPersistenceException ex) {
-               FacesContext.getCurrentInstance().addMessage("lendForm:dlgMessages",
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", ex.getMessage()));
-               
+                FacesContext.getCurrentInstance().addMessage("lendForm:dlgMessages",
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", ex.getMessage()));
+
             }
-           
+
         } catch (MemberNotFoundException ex) {
             FacesContext.getCurrentInstance().addMessage("lendForm:dlgMessages",
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", ex.getMessage()));
-            
+
         }
     }
-    
+
+    public Member selectMember() {
+        try {
+            return memberToLend = memberLMSSessionBean.retrieveMemberByIdentityNum(memberToLendTypedID);
+        } catch (MemberNotFoundException ex) {
+            FacesContext.getCurrentInstance().addMessage("lendForm:dlgMessages",
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", ex.getMessage()));
+            return null;
+        }
+    }
+
     public String refresh() {
         return "lendBooks.xhtml?faces-redirect=true";
     }
-    
+
     // For data table global search
     public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
         String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase();
@@ -182,5 +191,5 @@ public class BookManagedBean implements Serializable {
     public void setMemberToLendTypedID(String memberToLendTypedID) {
         this.memberToLendTypedID = memberToLendTypedID;
     }
-    
+
 }
