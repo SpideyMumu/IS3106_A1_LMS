@@ -48,7 +48,7 @@ public class DataInitSB {
     @PostConstruct
     public void postConstruct() {
         try {
-            staffLMSSessionBean.retrieveStaffByUsername("mursyid");
+            staffLMSSessionBean.retrieveStaffByUsername("eric");
         } catch (StaffNotFoundException ex) {
             try {
                 initializeData();
