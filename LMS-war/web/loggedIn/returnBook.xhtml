@@ -69,13 +69,22 @@
                     </p:confirmDialog>
                 </h:form>
 
-                <!-- Successful dialog-->
+                <!-- Successful No Fine dialog-->
                 <h:form>
-                    <p:dialog header="Succesfully Returned!" widgetVar="dlgSuccess" minHeight="40" 
+                    <p:dialog header="No fine recorded. Succesfully Returned!" widgetVar="dlgSuccess" minHeight="40" 
                               showEffect="fade" modal="true" closable="false">
                         <p:commandButton value="Ok" action="#{lendReturnManagedBean.refresh()}"/>
                     </p:dialog>
                 </h:form>
+                
+                <!-- Collect Payment dialog-->
+                <h:form>
+                    <p:dialog header="Please Collect Payment of $#{lendReturnManagedBean.selectedLRFine} from #{lend.member}" widgetVar="dlgFinePayment" minHeight="40" 
+                              showEffect="fade" modal="true" closable="false">
+                        <p:commandButton value="Ok" action="#{lendReturnManagedBean.confirmPayment()}"/>
+                    </p:dialog>
+                </h:form>
+                
             </ui:define>
 
         </ui:composition>

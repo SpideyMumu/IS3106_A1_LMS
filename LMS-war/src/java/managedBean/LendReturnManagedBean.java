@@ -11,6 +11,7 @@ import entity.LendAndReturn;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Locale;
 import javax.annotation.PostConstruct;
@@ -38,6 +39,8 @@ public class LendReturnManagedBean implements Serializable {
     private List<LendAndReturn> filteredLendAndReturns;
 
     private LendAndReturn selectedLendAndReturn;
+
+    private BigDecimal selectedLRFine;
 
     public LendReturnManagedBean() {
     }
@@ -69,12 +72,31 @@ public class LendReturnManagedBean implements Serializable {
 
     public void returnBook() {
         try {
-            lendAndReturnLMSSessionBean.returnBook(selectedLendAndReturn.getLendId());
             PrimeFaces current = PrimeFaces.current();
-            current.executeScript("PF('dlgSuccess').show();");
+            this.selectedLRFine = lendAndReturnLMSSessionBean.checkFineAmount(selectedLendAndReturn.getLendId());
+
+            if (selectedLRFine.compareTo(BigDecimal.ZERO) == 0) { // no fine
+                lendAndReturnLMSSessionBean.returnBook(selectedLendAndReturn.getLendId());
+                current.executeScript("PF('dlgSuccess').show();");
+            } else { // fine
+                // open another dialog fine amount
+                current.executeScript("PF('dlgFinePayment').show();");
+            }
+
         } catch (LendingNotFoundException ex) {
-            FacesContext.getCurrentInstance().addMessage("lendForm:dlgMessages",
+            FacesContext.getCurrentInstance().addMessage("tableForm:messages",
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", ex.getMessage()));
+        }
+    }
+
+    public String confirmPayment() {
+        try {
+            lendAndReturnLMSSessionBean.returnBook(selectedLendAndReturn.getLendId());
+            return "returnBook.xhtml?faces-redirect=true";
+        } catch (LendingNotFoundException ex) {
+            FacesContext.getCurrentInstance().addMessage("tableForm:messages",
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", ex.getMessage()));
+            return "";
         }
     }
 
@@ -112,6 +134,14 @@ public class LendReturnManagedBean implements Serializable {
 
     public void setSelectedLendAndReturn(LendAndReturn selectedLendAndReturn) {
         this.selectedLendAndReturn = selectedLendAndReturn;
+    }
+
+    public BigDecimal getSelectedLRFine() {
+        return selectedLRFine;
+    }
+
+    public void setSelectedLRFine(BigDecimal selectedLRFine) {
+        this.selectedLRFine = selectedLRFine;
     }
 
 }

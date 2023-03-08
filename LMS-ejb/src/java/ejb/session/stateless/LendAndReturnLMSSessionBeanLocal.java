@@ -7,6 +7,7 @@ package ejb.session.stateless;
 
 import entity.Book;
 import entity.LendAndReturn;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Local;
 import util.exception.BookNotFoundException;
@@ -29,4 +30,6 @@ public interface LendAndReturnLMSSessionBeanLocal {
     public List<LendAndReturn> retrieveAllLendAndReturns();
 
     public List<LendAndReturn> retrieveUnreturnedLends();
+
+    public BigDecimal checkFineAmount(Long lrId) throws LendingNotFoundException;
 }

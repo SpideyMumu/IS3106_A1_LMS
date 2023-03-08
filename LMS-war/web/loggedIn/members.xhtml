@@ -55,33 +55,54 @@
                 </h:form>
 
                 <!-- Register Member Form -->
-                <p:dialog header="Register New Member" widgetVar="dlg" minHeight="40"
+                <p:dialog header="Register New Member" widgetVar="dlg" minHeight="40" width="50%"
                           showEffect="fade" modal="true" appendTo="@(body)" fitViewport="true" closeOnEscape="true">
                     <h:form>
                         <div class="ui-fluid">
-                            <div class="field">
-                                First Name: <p:inputText id="firstName" value="#{memberManagedBean.newMember.firstName}"/>
+                            <div class="field grid">
+                                <p:outputLabel for="firstName" styleClass="col-12 md:col-2" value="First name"/> 
+                                <div class="col-12 md:col-10">
+                                    <p:inputText id="firstName" value="#{memberManagedBean.newMember.firstName}"/>
+                                </div>
                             </div>
-                            <div class="field">
-                                Last Name: <p:inputText value="#{memberManagedBean.newMember.lastName}"/>
+                            <div class="field grid">
+                                <p:outputLabel for="lastName" styleClass="col-12 md:col-2" value="Last name"/>  
+                                <div class="col-12 md:col-10">
+                                    <p:inputText id="lastName" value="#{memberManagedBean.newMember.lastName}"/>
+                                </div>
                             </div>
-                            <div class="field">
-                                Gender: <p:selectOneMenu value = "#{memberManagedBean.newMember.gender}"> 
-                                    <f:selectItem itemValue = "M" itemLabel = "Male" /> 
-                                    <f:selectItem itemValue = "F" itemLabel = "Female" />
-                                </p:selectOneMenu>    
+                            <div class="field grid">
+                                <p:outputLabel for="gender" styleClass="col-12 md:col-2" value="Gender"/> 
+                                <div class="col-12 md:col-10">
+                                    <p:selectOneMenu id="gender" value = "#{memberManagedBean.newMember.gender}"> 
+                                        <f:selectItem itemValue = "M" itemLabel = "Male" /> 
+                                        <f:selectItem itemValue = "F" itemLabel = "Female" />
+                                    </p:selectOneMenu>    
+                                </div>
                             </div>
-                            <div class="field">
-                                Age: <p:inputText value="#{memberManagedBean.newMember.age}" converterMessage="Please enter digits only for Age"/>
+                            <div class="field grid">
+                                <p:outputLabel for="age" styleClass="col-12 md:col-2" value="Age"/> 
+                                <div class="col-12 md:col-10">
+                                    <p:inputText id="age" value="#{memberManagedBean.newMember.age}" converterMessage="Please enter digits only for Age"/>
+                                </div>
                             </div>
-                            <div class="field">
-                                Identity Number: <p:inputMask value="#{memberManagedBean.newMember.identityNo}" mask="a9999999a"/>
+                            <div class="field grid">
+                                <p:outputLabel for="idNo" styleClass="col-12 md:col-2" value="Identity Number"/> 
+                                <div class="col-12 md:col-10">
+                                    <p:inputMask id="idNo" value="#{memberManagedBean.newMember.identityNo}" mask="a9999999a"/>
+                                </div>
                             </div>
-                            <div class="field">
-                                Phone Number: <p:inputMask value="#{memberManagedBean.newMember.phone}" mask="99999999"/>
+                            <div class="field grid">
+                                <p:outputLabel for="phone" styleClass="col-12 md:col-2" value="Phone Number"/> 
+                                <div class="col-12 md:col-10">
+                                    <p:inputMask id="phone" value="#{memberManagedBean.newMember.phone}" mask="99999999"/>
+                                </div>
                             </div>
-                            <div class="field">
-                                Address: <p:inputText value="#{memberManagedBean.newMember.address}"/>
+                            <div class="field grid">
+                                <p:outputLabel for="address" styleClass="col-12 md:col-2" value="Address"/> 
+                                <div class="col-12 md:col-10">
+                                    <p:inputText id="address" value="#{memberManagedBean.newMember.address}"/>
+                                </div>
                             </div>
                             <div class="field">
                                 <p:messages id="messages" showDetail="true">
