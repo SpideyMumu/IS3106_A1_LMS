@@ -40,7 +40,7 @@ public class LendReturnManagedBean implements Serializable {
 
     private LendAndReturn selectedLendAndReturn;
 
-    private BigDecimal selectedLRFine;
+    private BigDecimal selectedLRFine = BigDecimal.ZERO;
 
     public LendReturnManagedBean() {
     }
@@ -80,23 +80,30 @@ public class LendReturnManagedBean implements Serializable {
                 current.executeScript("PF('dlgSuccess').show();");
             } else { // fine
                 // open another dialog fine amount
+                System.out.println(selectedLRFine);
+                FacesContext.getCurrentInstance().addMessage("fineForm:fineMessages",
+                        new FacesMessage(FacesMessage.SEVERITY_WARN, null, "Please collect fine of $" + selectedLRFine.toString() + "0 from " + selectedLendAndReturn.getMember().toString()
+                        ));
                 current.executeScript("PF('dlgFinePayment').show();");
             }
 
         } catch (LendingNotFoundException ex) {
-            FacesContext.getCurrentInstance().addMessage("tableForm:messages",
+            FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", ex.getMessage()));
         }
     }
 
-    public String confirmPayment() {
+    public void confirmPayment() {
         try {
             lendAndReturnLMSSessionBean.returnBook(selectedLendAndReturn.getLendId());
-            return "returnBook.xhtml?faces-redirect=true";
+            PrimeFaces current = PrimeFaces.current();
+            current.executeScript("PF('dlgFinePayment').hide();");
+            current.executeScript("PF('dlgSuccessFine').show();");
+            //return "returnBook.xhtml?faces-redirect=true";
         } catch (LendingNotFoundException ex) {
             FacesContext.getCurrentInstance().addMessage("tableForm:messages",
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", ex.getMessage()));
-            return "";
+            //return "";
         }
     }
 

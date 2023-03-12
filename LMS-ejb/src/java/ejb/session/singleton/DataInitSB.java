@@ -10,13 +10,25 @@ import ejb.session.stateless.LendAndReturnLMSSessionBeanLocal;
 import ejb.session.stateless.MemberLMSSessionBeanLocal;
 import ejb.session.stateless.StaffLMSSessionBeanLocal;
 import entity.Book;
+import entity.LendAndReturn;
 import entity.Member;
 import entity.Staff;
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.LocalBean;
 import javax.ejb.Startup;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
+import util.exception.BookNotFoundException;
+import util.exception.MemberNotFoundException;
 import util.exception.StaffNotFoundException;
 import util.exception.UnknownPersistenceException;
 import util.exception.UsernameExistException;
@@ -41,7 +53,11 @@ public class DataInitSB {
 
     @EJB
     private BookLMSSessionBeanLocal bookLMSSessionBean;
-
+    
+    @PersistenceContext(unitName = "LMS-ejbPU")
+    private EntityManager em;
+    
+    
     public DataInitSB() {
     }
 
@@ -52,15 +68,14 @@ public class DataInitSB {
         } catch (StaffNotFoundException ex) {
             try {
                 initializeData();
-            } catch (UsernameExistException |UnknownPersistenceException ex2) {
+            } catch (UsernameExistException | UnknownPersistenceException ex2) {
                 ex.printStackTrace();
             }
         }
     }
 
     private void initializeData() throws
-            UsernameExistException, UnknownPersistenceException 
-    {
+            UsernameExistException, UnknownPersistenceException {
         // create staff here
         Staff eric = new Staff("Eric", "Some", "eric", "password");
         Staff sarah = new Staff("Sarah", "Brightman", "sarah", "password");
@@ -100,11 +115,28 @@ public class DataInitSB {
         /*
         1 Tony Shade M 31 S8900678A 83722773 13 Jurong East, Ave 3
         2 Dewi Tan F 35 S8581028X 94602711 15 Computing Dr
-        */
+         */
         Member tony = new Member(1, "Tony", "Shade", 'M', 31, "S8900678A", "83722773", "13 Jurong East, Ave 3");
         Member dewi = new Member(2, "Dewi", "Tan", 'F', 35, "S8581028X", "94602711", "15 Computing Dr");
-        
+
         memberLMSSessionBean.createNewMember(dewi);
         memberLMSSessionBean.createNewMember(tony);
+
+        // Create dummy lend for testing fine amount
+        if (em.find(LendAndReturn.class, 1l) == null) {
+            try {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                Date lendDate = dateFormat.parse("2023-02-07 03:59");
+                try {
+                    LendAndReturn dummyLR = new LendAndReturn();
+                    dummyLR.setLendDate(lendDate);
+                    lendAndReturnLMSSessionBean.createNewLendAndReturn(dummyLR, 1l, 1l);
+                } catch (PersistenceException | UnknownPersistenceException ex) {
+                    Logger.getLogger(DataInitSB.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } catch (ParseException ex) {
+                Logger.getLogger(DataInitSB.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

@@ -29,9 +29,10 @@
                             </h:outputText>
                         </p:column>
                         <p:column headerText="Return Date">
-                            <h:outputText value="#{lend.returnDate}">
+                            <h:outputText value="#{lend.returnDate}" rendered="#{lend.returnDate != null}">
                                 <f:convertDateTime type="both" pattern="yyyy-MM-dd HH:mm" timeZone="GMT+08:00"/>
                             </h:outputText>
+                            <h:outputText value="Unreturned" rendered="#{lend.returnDate == null}"/>
                         </p:column>
                     </p:dataTable>
                 </div>
