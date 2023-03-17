@@ -14,7 +14,7 @@ Submission date: 17 March 2023
 
 ## Additional Features:
 - Search Function for all DataTables.
-	- This was implemented using globalfilterfunction from PrimeFaces
+	- This was implemented using `globalfilterfunction` from PrimeFaces
 - Dropdown menu with search function for member selection when lending book. 
 	- This makes it easier for library staff to lend a book to a member as they do not need to copy paste the member ID number or name.
         - The dropdown makes use of a Member entity JSF converter
