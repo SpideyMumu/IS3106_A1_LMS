@@ -134,25 +134,6 @@ public class LendAndReturnLMSSessionBean implements LendAndReturnLMSSessionBeanL
 
         Date dateReturned = new Date();
         returningEntity.setReturnDate(dateReturned);
-
-        /*        
-
-        //Convert Date objects to Calendar
-        Calendar calReturned = Calendar.getInstance();
-        calReturned.setTime(dateReturned);
-        
-        Calendar deadline = Calendar.getInstance();
-        deadline.setTime(returningEntity.getLendDate());
-        deadline.add(Calendar.DATE, 14);
-        
-        //Calculate fine amount
-        if (calReturned.after(deadline)) {
-            //add fine amount here
-            long daysBetween = ChronoUnit.DAYS.between(deadline.toInstant(), calReturned.toInstant());
-            BigDecimal fineAmount = BigDecimal.valueOf(0.5).multiply(BigDecimal.valueOf(daysBetween));
-            returningEntity.setFineAmount(fineAmount);
-        }
-         */
         returningEntity.getBook().setAvailable(true);
 
         em.merge(returningEntity);

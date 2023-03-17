@@ -11,6 +11,7 @@ import java.io.Serializable;
 import static java.lang.Integer.getInteger;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -19,6 +20,11 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import org.primefaces.util.LangUtils;
 import util.exception.UnknownPersistenceException;
 import util.exception.UsernameExistException;
@@ -52,12 +58,20 @@ public class MemberManagedBean {
 
     public String registerMember() {
         try {
-            memberLMSSessionBean.createNewMember(newMember);
-            return "members.xhtml?faces-redirect=true";
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
+            Set<ConstraintViolation<Member>> violations = validator.validate(newMember);
+            if (!violations.isEmpty()) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Please fill in all fields"));
+                return "";
+            } else {
+                memberLMSSessionBean.createNewMember(newMember);
+                return "members.xhtml?faces-redirect=true";
+            }
         } catch (UsernameExistException ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", ex.getMessage()));
             return "";
-        } catch (UnknownPersistenceException ex1) {
+        } catch (UnknownPersistenceException | ConstraintViolationException ex1) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Please fill in all fields"));
             return "";
         }
